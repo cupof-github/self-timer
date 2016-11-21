@@ -1,0 +1,6 @@
+node_modules
+.tags*
+.atomignore
+note.txt
+any.js
+*_test.js

@@ -1,0 +1,36 @@
+{
+    "name": "self-timer",
+    "version": "1.0.0",
+    "description": "light-weight callback runner.",
+    "main": "./dist/selftimer.min.js",
+    "scripts": {
+        "test": "jest",
+        "build-es5": " gulp es5-build && gulp es5-umd && gulp es5-minify",
+        "build-promise-polyfill": "gulp promise-build && gulp promise-umd && gulp promise-attach && gulp promise-polyfill-minify",
+        "build-promise": "gulp promise-build && gulp promise-umd && gulp promise-minify"
+    },
+    "author": "cupOF Interests",
+    "license": "MIT",
+    "repository":{
+      "type": "git",
+      "url": "https://github.com/cupof-github/self-timer"
+    },
+    "devDependencies": {
+        "babel-core": "^6.18.0",
+        "babel-loader": "^6.2.5",
+        "babel-preset-es2015": "^6.18.0",
+        "babel-preset-react": "^6.16.0",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.6.0",
+        "gulp-minify": "0.0.14",
+        "gulp-umd": "^0.2.0",
+        "jest": "^16.0.2",
+        "webpack": "^1.13.2"
+    },
+    "dependencies": {
+        "lodash": "^4.16.4",
+        "promise-polyfill": "^6.0.2",
+        "react": "^15.3.2",
+        "react-dom": "^15.3.2"
+    }
+}

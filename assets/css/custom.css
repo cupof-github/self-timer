@@ -1,0 +1,45 @@
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+    0%, 100% {
+        transform: rotate(0)
+    }
+    20%, 60% {
+        transform: rotate(-25deg)
+    }
+    40%, 80% {
+        transform: rotate(10deg)
+    }
+}
+
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+}
+
+ul.none {
+    list-style-type: none;
+}
+
+pre {
+    background-color: #F7F7F7
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    color: #fff;
+    background-color: #a38269;
+}
+
+a:hover {
+    color: #654228;
+}
+
+body {
+    -webkit-tap-highlight-color: #654228;
+}
