@@ -8,6 +8,8 @@
 
 The self-timer.js is a light-weight callback runner library for javascript .
 
+[Documentation](https://cupof-github.github.io/doc-selftimer/#/)
+
 The name of **self-timer.js** is originated from 'self-timer', which is a device on a camera. You may run your callback at the timing when you want to execute as if self-timer .
 
 For instance, run some function if today is weekdays ( Monday to Friday ), **self-timer.js** is able to write simplify .
