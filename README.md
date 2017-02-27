@@ -71,6 +71,19 @@ Using npm:
 npm install self-timer
 ```
 
+Using CDN:
+```html
+
+<!-- callback  -->
+<script src="https://unpkg.com/self-timer/dist/selftimer.min.js"></script>
+
+<!-- promise  -->
+<script src="https://unpkg.com/self-timer/dist/selftimer-promise.min.js"></script>
+
+<!-- promise but including polyfill  -->
+<script src="https://unpkg.com/self-timer/dist/selftimer-promise-polyfill.min.js"></script>
+```
+
 ## Available Methods
 
 **.on( )**
