@@ -17,64 +17,64 @@ describe('SelfTimer.js on method Test', () => {
     };
 
     it('Sunday method Test', () => {
-      
+
         // const task = (new selfTimer(new Date(dayOfWeek.Sun)));
-        
+
         (new selfTimer(new Date(dayOfWeek.Sun)))
             .on(true)
             .Sunday()
             .then((res) => { expect(res).toBeTruthy() })
             .catch((res) => {  } );
-            
-        
+
+
 
     });
 
     it('Monday method Test', () => {
-    
+
         (new selfTimer(new Date(dayOfWeek.Mon)))
             .on(true)
             .Monday()
             .then((res) => { expect(res).toBeTruthy() })
             .catch((res) => {  } );
     });
-    
+
     it('Tuesday method Test', () => {
-    
+
         (new selfTimer(new Date(dayOfWeek.Tue)))
           .on(true)
           .Tuesday()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Wednesday method Test', () => {
-    
+
         (new selfTimer(new Date(dayOfWeek.Wed)))
           .on(true)
           .Wednesday()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Thursday method Test', () => {
-  
+
         (new selfTimer(new Date(dayOfWeek.Thu)))
           .on(true)
           .Thursday()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Friday method Test', () => {
-  
+
         (new selfTimer(new Date(dayOfWeek.Fri)))
           .on(true)
           .Friday()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Saturday method Test', () => {
 
         (new selfTimer(new Date(dayOfWeek.Sat)))
@@ -82,9 +82,9 @@ describe('SelfTimer.js on method Test', () => {
           .Saturday()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
-          
+
     });
-    
+
     it('Selects method Test', () => {
         // Friday
         const arr = ["Fri"];
@@ -95,38 +95,38 @@ describe('SelfTimer.js on method Test', () => {
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Weekdays method Test', () => {
-    
+
         (new selfTimer(new Date(dayOfWeek.Fri)))
           .on(true)
           .Weekdays()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
     });
-    
+
     it('Weekend method Test', () => {
-    
+
         (new selfTimer(new Date(dayOfWeek.Sun)))
           .on(true)
           .Weekend()
           .then((res) => { expect(res).toBeTruthy() })
           .catch((res) => {  } );
-    
+
     });
-    
+
     it('Annual method Test', () => {
-    
+
         const task = new selfTimer(new Date());
-    
+
         // output exp: 11-2 1-31 *MM-DD
         let todayString = task.helpers().__dateString();
-          
+
         task.on(true)
             .Annual(todayString)
             .then((res) => { expect(res).toBeTruthy() })
             .catch((res) => {  } );
-    
+
     });
 
     // it('DateBetween method Test', () => {
@@ -134,6 +134,22 @@ describe('SelfTimer.js on method Test', () => {
     //     const task = new selfTimer(new Date());
     //
     //     let todayString = task.helpers().__dateString();
+    // });
+
+    // it('DatesContain method Test', () => {
+    //
+    //   const dateArray = ["2017-03-01"];
+    //
+    //   const task = new selfTimer(new Date('2017-03-01'));
+    //
+    //   task.on(true)
+    //       .DatesContain(dateArray)
+    //       .then((res) => {
+    //         console.log('valid');
+    //       })
+    //       .catch((res) => {
+    //         console.log('inValid');
+    //       });
     // });
 
 });

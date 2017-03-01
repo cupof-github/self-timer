@@ -1,164 +1,164 @@
-'use strict'
+"use strict";
 
-const selfTimer = require('../src/build/es5/intermediate/selftimer');
+const selfTimer = require("../src/build/es5/intermediate/selftimer");
 
-describe('SelfTimer.js on method Test', () => {
+describe("SelfTimer.js on method Test", () => {
+  const str = "working";
 
-    const str = "working";
+  const dayOfWeek = {
+    Sun: "2016-10-30T03:24:00",
+    Mon: "2016-10-31T03:24:00",
+    Tue: "2016-11-01T03:24:00",
+    Wed: "2016-11-02T03:24:00",
+    Thu: "2016-11-03T03:24:00",
+    Fri: "2016-11-04T03:24:00",
+    Sat: "2016-11-05T03:24:00"
+  };
 
-    const dayOfWeek = {
-        Sun: '2016-10-30T03:24:00',
-        Mon: '2016-10-31T03:24:00',
-        Tue: '2016-11-01T03:24:00',
-        Wed: '2016-11-02T03:24:00',
-        Thu: '2016-11-03T03:24:00',
-        Fri: '2016-11-04T03:24:00',
-        Sat: '2016-11-05T03:24:00'
-    };
+  it("Sunday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Sun));
 
-    it('Sunday method Test', () => {
-        const task = new selfTimer(new Date(dayOfWeek.Sun));
-
-        const callback = task.on().Sunday(() => {
-            return str;
-        })
-
-        expect(callback).toBe(str);
-        expect(task.on().Sunday()).toBeTruthy();
-
+    const callback = task.on().Sunday(() => {
+      return str;
     });
 
-    it('Monday method Test', () => {
-        const task = new selfTimer(new Date(dayOfWeek.Mon));
+    expect(callback).toBe(str);
+    expect(task.on().Sunday()).toBeTruthy();
+  });
 
-        const callback = task.on().Monday(() => {
-            return str;
-        });
+  it("Monday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Mon));
 
-        expect(callback).toBe(str);
-        expect(task.on().Monday()).toBeTruthy();
+    const callback = task.on().Monday(() => {
+      return str;
     });
 
-    it('Tuesday method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Monday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Tue));
+  it("Tuesday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Tue));
 
-        const callback = task.on().Tuesday(() => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Tuesday()).toBeTruthy();
+    const callback = task.on().Tuesday(() => {
+      return str;
     });
 
-    it('Wednesday method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Tuesday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Wed));
+  it("Wednesday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Wed));
 
-        const callback = task.on().Wednesday(() => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Wednesday()).toBeTruthy();
+    const callback = task.on().Wednesday(() => {
+      return str;
     });
 
-    it('Thursday method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Wednesday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Thu));
+  it("Thursday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Thu));
 
-        const callback = task.on().Thursday(() => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Thursday()).toBeTruthy();
+    const callback = task.on().Thursday(() => {
+      return str;
     });
 
-    it('Friday method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Thursday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Fri));
+  it("Friday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Fri));
 
-        const callback = task.on().Friday(() => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Friday()).toBeTruthy();
+    const callback = task.on().Friday(() => {
+      return str;
     });
 
-    it('Saturday method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Friday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Sat));
+  it("Saturday method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Sat));
 
-        const callback = task.on().Saturday(() => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Saturday()).toBeTruthy();
+    const callback = task.on().Saturday(() => {
+      return str;
     });
 
-    it('Select method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Saturday()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Fri));
+  it("Select method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Fri));
 
-        // Friday
-        const arr = ["Fri"];
+    // Friday
+    const arr = ["Fri"];
 
-        const callback = task.on().Selects(arr, () => {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Selects(arr)).toBeTruthy();
+    const callback = task.on().Selects(arr, () => {
+      return str;
     });
 
-    it('Weekdays method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Selects(arr)).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date(dayOfWeek.Fri));
+  it("Weekdays method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Fri));
 
-        const callback = task.on().Weekdays(function() {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Weekdays()).toBeTruthy();
+    const callback = task.on().Weekdays(function() {
+      return str;
     });
 
-    it('Weekend method Test', () => {
-        const task = new selfTimer(new Date(dayOfWeek.Sun));
+    expect(callback).toBe(str);
+    expect(task.on().Weekdays()).toBeTruthy();
+  });
 
-        const callback = task.on().Weekend(function() {
-            return str;
-        });
+  it("Weekend method Test", () => {
+    const task = new selfTimer(new Date(dayOfWeek.Sun));
 
-        expect(callback).toBe(str);
-        expect(task.on().Weekend()).toBeTruthy();
-
+    const callback = task.on().Weekend(function() {
+      return str;
     });
 
-    it('Annual method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Weekend()).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date());
+  it("Annual method Test", () => {
+    const task = new selfTimer(new Date());
 
-        // output exp: 11-2 1-31 *MM-DD
-        let todayString = task.helpers().__dateString();
+    // output exp: 11-2 1-31 *MM-DD
+    let todayString = task.helpers().__dateString();
 
-        const callback = task.on().Annual(todayString, function() {
-            return str;
-        });
-
-        expect(callback).toBe(str);
-        expect(task.on().Annual(todayString)).toBeTruthy();
-
+    const callback = task.on().Annual(todayString, () => {
+      return str;
     });
 
-    it('DateBetween method Test', () => {
+    expect(callback).toBe(str);
+    expect(task.on().Annual(todayString)).toBeTruthy();
+  });
 
-        const task = new selfTimer(new Date());
+  it("DateBetween method Test", () => {
+    const task = new selfTimer(new Date());
 
-        let todayString = task.helpers().__dateString();
+    let todayString = task.helpers().__dateString();
+  });
+
+  it("DatesContain method Test", () => {
+    const dateArray = ["2017-03-01"];
+
+    const task = new selfTimer(new Date("2017-03-01"));
+
+    const callback = task.on().DatesContain(dateArray, () => {
+      return str;
     });
 
+    expect(callback).toBe(str);
+
+    expect(task.on().DatesContain(dateArray)).toBeTruthy();
+  });
 });

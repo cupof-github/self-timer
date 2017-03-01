@@ -92,7 +92,7 @@ Using CDN:
 
 - Sunday(), Monday(), Tuesday(), Wednesday(), Thursday(), Friday() Saturday()
 - Weekday(), Weekend(), Selects()
-- Annual(), DatesBetween()
+- Annual(), DatesBetween(), DatesContain()
 
 **.at( )**
 

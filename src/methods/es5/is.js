@@ -13,12 +13,11 @@ SelfTimer.prototype.is = (function() {
     var True = (function(condition, task) {
 
         if (condition)
-            return task !== undefined
-                ? task()
-                : true;
+            return task !== undefined ?
+                task() :
+                true;
 
-        }
-    ); // ! True()
+    }); // ! True()
 
     /**
      * [ if condition is false, return callback ]
@@ -29,11 +28,10 @@ SelfTimer.prototype.is = (function() {
     var False = (function(condition, task) {
 
         if (!condition)
-            return task !== undefined
-                ? task()
-                : true;
-        }
-    ); // ! False()
+            return task !== undefined ?
+                task() :
+                true;
+    }); // ! False()
 
     /**
      * [ if match browser language value, return callback ]
@@ -44,37 +42,35 @@ SelfTimer.prototype.is = (function() {
      */
     var Language = (function(lang, task) {
 
-        var detect = navigator.userLanguage === 'undefined'
-            ? navigator.userLanguage
-            : navigator.language;
+        var detect = navigator.userLanguage === 'undefined' ?
+            navigator.userLanguage :
+            navigator.language;
 
         if (lang == detect)
-            return task !== undefined
-                ? task()
-                : true;
+            return task !== undefined ?
+                task() :
+                true;
 
-        }
-    ); // ! Language()
-    
+    }); // ! Language()
+
     /**
-    * [ if match browser language value, return callback, but this one enable short value ]
-    * @param {[ String ]} lang
-    * @param {[ Function ]} task
-    * @return {[ Function ]}
+     * [ if match browser language value, return callback, but this one enable short value ]
+     * @param {[ String ]} lang
+     * @param {[ Function ]} task
+     * @return {[ Function ]}
      */
     var Lang = (function(lang, task) {
 
-        var detect = navigator.userLanguage === 'undefined'
-            ? navigator.userLanguage
-            : navigator.language;
+        var detect = navigator.userLanguage === 'undefined' ?
+            navigator.userLanguage :
+            navigator.language;
 
         if (lang == detect.slice(0, 2))
-            return task !== undefined
-                ? task()
-                : true;
+            return task !== undefined ?
+                task() :
+                true;
 
-        }
-    ); // ! Lang()
+    }); // ! Lang()
 
     // register methods
     var REGISTER = {
