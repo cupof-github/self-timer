@@ -3,23 +3,21 @@
  * @return {[type]} [description]
  */
 SelfTimer.prototype.helpers = function() {
+  var _current = this.D;
+  var _day = this.D.getDay();
 
-    var _current = this.D;
-    var _day = this.D.getDay();
-
-    /**
+  /**
      * [__checkIsValid description]
      * @param  {[type]} variable [description]
      * @return {[type]}          [description]
      */
-    var __checkIsValid = function(variable) {
+  var __checkIsValid = function(variable) {
+    return typeof variable == "function" || variable == undefined
+      ? true
+      : false;
+  };
 
-        return (typeof variable == "function" || variable == undefined)
-            ? true
-            : false;
-    };
-
-    /**
+  /**
      * [ check contain object in array ]
      * @param  {[ Array ]} array
      * @param  {[ Any ]} object
@@ -27,129 +25,124 @@ SelfTimer.prototype.helpers = function() {
      * Ref: http://stackoverflow.com/a/237176/2704539
      * @exp __contains(array, 7)
      */
-    var __contains = function(array, object) {
+  var __contains = function(array, object) {
+    var i = array.length;
 
-        var i = array.length;
+    while (i--) {
+      if (array[i] === object) return true;
+    }
 
-        while (i--) {
-            if (array[i] === object)
-                return true;
-            }
-        
-        return false;
+    return false;
+  };
 
-    };
-
-    /**
+  /**
      * [ Replace a strings to individual numbers in array ]
      * @param  {[ Array ]} arr
      * @return {[ Array ]}
      */
-    var __dayOfTheWeekStringToNumber = function(arr) {
+  var __dayOfTheWeekStringToNumber = function(arr) {
+    return arr
+      .map(function(res) {
+        return res.replace(/Sun/g, 0);
+      })
+      .map(function(res) {
+        return res.replace(/Mon/g, 1);
+      })
+      .map(function(res) {
+        return res.replace(/Tue/g, 2);
+      })
+      .map(function(res) {
+        return res.replace(/Wed/g, 3);
+      })
+      .map(function(res) {
+        return res.replace(/Thu/g, 4);
+      })
+      .map(function(res) {
+        return res.replace(/Fri/g, 5);
+      })
+      .map(function(res) {
+        return res.replace(/Sat/g, 6);
+      })
+      .map(function(res) {
+        return parseInt(res);
+      });
+  };
 
-        return arr.map(function(res) {
-            return res.replace(/Sun/g, 0);
-        }).map(function(res) {
-            return res.replace(/Mon/g, 1);
-        }).map(function(res) {
-            return res.replace(/Tue/g, 2);
-        }).map(function(res) {
-            return res.replace(/Wed/g, 3);
-        }).map(function(res) {
-            return res.replace(/Thu/g, 4);
-        }).map(function(res) {
-            return res.replace(/Fri/g, 5);
-        }).map(function(res) {
-            return res.replace(/Sat/g, 6);
-        }).map(function(res) {
-            return parseInt(res);
-        });
-    };
-
-    /**
+  /**
      * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
      * @return {[String]}   [description]
      * Ref: http://stackoverflow.com/a/26078713/2704539
      */
-    var __timeObject = function(d) {
+  var __timeObject = function(d) {
+    var parts = d.split(/:|\s/), date = new Date();
 
-        var parts = d.split(/:|\s/),
-            date = new Date();
+    if (parts.pop().toLowerCase() == "pm") parts[0] = +parts[0] + 12;
 
-        if (parts.pop().toLowerCase() == 'pm')
-            parts[0] = (+ parts[0]) + 12;
-        
-        date.setHours(+ parts.shift());
-        date.setMinutes(+ parts.shift());
-        return date;
-    };
+    date.setHours(+parts.shift());
+    date.setMinutes(+parts.shift());
+    return date;
+  };
 
-    /**
+  /**
      * @param  {[ Integer ]} start
      * @param  {[ Integer ]} count
      * @return {[ Array ]}
      * Ref: http://stackoverflow.com/a/3746752/2704539
      */
-    var __range = function(start, count) {
+  var __range = function(start, count) {
+    if (arguments.length == 1) {
+      count = start;
+      start = 0;
+    }
 
-        if (arguments.length == 1) {
-            count = start;
-            start = 0;
-        }
+    var arr = [];
 
-        var arr = [];
+    for (var i = 0; i < count; i++) {
+      arr.push(start - i);
+    }
 
-        for (var i = 0; i < count; i++) {
-            arr.push(start - i);
-        }
+    return arr;
+  };
 
-        return arr;
-    };
-
-    /**
+  /**
      * @param  {[ Date ]} from
      * @param  {[ Date ]} to
      * @param  {[ Date ]} current
      * @return {[ Bool ]}
      */
-    var __dateCompare = function(from, to, current) {
+  var __dateCompare = function(from, to, current) {
+    return current < to.setDate(to.getDate() + 1) && current > from
+      ? true
+      : false;
+  };
 
-        return current < to.setDate(to.getDate() + 1) && current > from
-            ? true
-            : false;
-    }
-
-    /**
+  /**
      * @param  {[ Integer ]} from
      * @param  {[ Integer ]} to
      * @return {[ String]}      [ splieted Date]
      * Ref: http://stackoverflow.com/a/23593099/2704539
      */
-    var __dateString = function() {
+  var __dateString = function() {
+    var month = _current.getMonth() + 1;
+    var day = _current.getDate();
 
-        var month = _current.getMonth() + 1;
-        var day = _current.getDate();
+    if (month.length < 2) month = "0" + month;
 
-        if (month.length < 2)
-            month = '0' + month;
-        
-        if (day.length < 2)
-            day = '0' + day;
-        
-        return [month, day].join('-');
+    if (day.length < 2) day = "0" + day;
 
-    };
+    return [month, day].join("-");
+  };
 
-    // Register methods
-    var REGISTER = {
-        "__checkIsValid": __checkIsValid,
-        "__contains": __contains,
-        "__dayOfTheWeekStringToNumber": __dayOfTheWeekStringToNumber,
-        "__timeObject": __timeObject,
-        "__range": __range,
-        "__dateCompare": __dateCompare,
-        "__dateString": __dateString
-    };
+  // Register methods
+  var REGISTER = {
+    __checkIsValid: __checkIsValid,
+    __contains: __contains,
+    __dayOfTheWeekStringToNumber: __dayOfTheWeekStringToNumber,
+    __timeObject: __timeObject,
+    __range: __range,
+    __dateCompare: __dateCompare,
+    __dateString: __dateString
+  };
 
-    return REGISTER;
-}
+  return REGISTER;
+};

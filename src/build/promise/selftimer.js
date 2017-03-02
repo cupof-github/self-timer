@@ -1,13 +1,11 @@
-"use strict"
+"use strict";
 
 /**
  * [SelfTimer description]
  * @param {[type]} date [description]
  */
 function SelfTimer(date) {
-
-    this.D = date;
-
+  this.D = date;
 }
 
 /**
@@ -15,23 +13,21 @@ function SelfTimer(date) {
  * @return {[type]} [description]
  */
 SelfTimer.prototype.helpers = function() {
+  var _current = this.D;
+  var _day = this.D.getDay();
 
-    var _current = this.D;
-    var _day = this.D.getDay();
-
-    /**
+  /**
      * [__checkIsValid description]
      * @param  {[type]} variable [description]
      * @return {[type]}          [description]
      */
-    var __checkIsValid = function(variable) {
+  var __checkIsValid = function(variable) {
+    return typeof variable == "function" || variable == undefined
+      ? true
+      : false;
+  };
 
-        return (typeof variable == "function" || variable == undefined)
-            ? true
-            : false;
-    };
-
-    /**
+  /**
      * [ check contain object in array ]
      * @param  {[ Array ]} array
      * @param  {[ Any ]} object
@@ -39,161 +35,154 @@ SelfTimer.prototype.helpers = function() {
      * Ref: http://stackoverflow.com/a/237176/2704539
      * @exp __contains(array, 7)
      */
-    var __contains = function(array, object) {
+  var __contains = function(array, object) {
+    var i = array.length;
 
-        var i = array.length;
+    while (i--) {
+      if (array[i] === object) return true;
+    }
 
-        while (i--) {
-            if (array[i] === object)
-                return true;
-            }
-        
-        return false;
+    return false;
+  };
 
-    };
-
-    /**
+  /**
      * [ Replace a strings to individual numbers in array ]
      * @param  {[ Array ]} arr
      * @return {[ Array ]}
      */
-    var __dayOfTheWeekStringToNumber = function(arr) {
+  var __dayOfTheWeekStringToNumber = function(arr) {
+    return arr
+      .map(function(res) {
+        return res.replace(/Sun/g, 0);
+      })
+      .map(function(res) {
+        return res.replace(/Mon/g, 1);
+      })
+      .map(function(res) {
+        return res.replace(/Tue/g, 2);
+      })
+      .map(function(res) {
+        return res.replace(/Wed/g, 3);
+      })
+      .map(function(res) {
+        return res.replace(/Thu/g, 4);
+      })
+      .map(function(res) {
+        return res.replace(/Fri/g, 5);
+      })
+      .map(function(res) {
+        return res.replace(/Sat/g, 6);
+      })
+      .map(function(res) {
+        return parseInt(res);
+      });
+  };
 
-        return arr.map(function(res) {
-            return res.replace(/Sun/g, 0);
-        }).map(function(res) {
-            return res.replace(/Mon/g, 1);
-        }).map(function(res) {
-            return res.replace(/Tue/g, 2);
-        }).map(function(res) {
-            return res.replace(/Wed/g, 3);
-        }).map(function(res) {
-            return res.replace(/Thu/g, 4);
-        }).map(function(res) {
-            return res.replace(/Fri/g, 5);
-        }).map(function(res) {
-            return res.replace(/Sat/g, 6);
-        }).map(function(res) {
-            return parseInt(res);
-        });
-    };
-
-    /**
+  /**
      * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
      * @return {[String]}   [description]
      * Ref: http://stackoverflow.com/a/26078713/2704539
      */
-    var __timeObject = function(d) {
+  var __timeObject = function(d) {
+    var parts = d.split(/:|\s/), date = new Date();
 
-        var parts = d.split(/:|\s/),
-            date = new Date();
+    if (parts.pop().toLowerCase() == "pm") parts[0] = +parts[0] + 12;
 
-        if (parts.pop().toLowerCase() == 'pm')
-            parts[0] = (+ parts[0]) + 12;
-        
-        date.setHours(+ parts.shift());
-        date.setMinutes(+ parts.shift());
-        return date;
-    };
+    date.setHours(+parts.shift());
+    date.setMinutes(+parts.shift());
+    return date;
+  };
 
-    /**
+  /**
      * @param  {[ Integer ]} start
      * @param  {[ Integer ]} count
      * @return {[ Array ]}
      * Ref: http://stackoverflow.com/a/3746752/2704539
      */
-    var __range = function(start, count) {
+  var __range = function(start, count) {
+    if (arguments.length == 1) {
+      count = start;
+      start = 0;
+    }
 
-        if (arguments.length == 1) {
-            count = start;
-            start = 0;
-        }
+    var arr = [];
 
-        var arr = [];
+    for (var i = 0; i < count; i++) {
+      arr.push(start - i);
+    }
 
-        for (var i = 0; i < count; i++) {
-            arr.push(start - i);
-        }
+    return arr;
+  };
 
-        return arr;
-    };
-
-    /**
+  /**
      * @param  {[ Date ]} from
      * @param  {[ Date ]} to
      * @param  {[ Date ]} current
      * @return {[ Bool ]}
      */
-    var __dateCompare = function(from, to, current) {
+  var __dateCompare = function(from, to, current) {
+    return current < to.setDate(to.getDate() + 1) && current > from
+      ? true
+      : false;
+  };
 
-        return current < to.setDate(to.getDate() + 1) && current > from
-            ? true
-            : false;
-    }
-
-    /**
+  /**
      * @param  {[ Integer ]} from
      * @param  {[ Integer ]} to
      * @return {[ String]}      [ splieted Date]
      * Ref: http://stackoverflow.com/a/23593099/2704539
      */
-    var __dateString = function() {
+  var __dateString = function() {
+    var month = _current.getMonth() + 1;
+    var day = _current.getDate();
 
-        var month = _current.getMonth() + 1;
-        var day = _current.getDate();
+    if (month.length < 2) month = "0" + month;
 
-        if (month.length < 2)
-            month = '0' + month;
-        
-        if (day.length < 2)
-            day = '0' + day;
-        
-        return [month, day].join('-');
+    if (day.length < 2) day = "0" + day;
 
-    };
+    return [month, day].join("-");
+  };
 
-    // Register methods
-    var REGISTER = {
-        "__checkIsValid": __checkIsValid,
-        "__contains": __contains,
-        "__dayOfTheWeekStringToNumber": __dayOfTheWeekStringToNumber,
-        "__timeObject": __timeObject,
-        "__range": __range,
-        "__dateCompare": __dateCompare,
-        "__dateString": __dateString
-    };
+  // Register methods
+  var REGISTER = {
+    __checkIsValid: __checkIsValid,
+    __contains: __contains,
+    __dayOfTheWeekStringToNumber: __dayOfTheWeekStringToNumber,
+    __timeObject: __timeObject,
+    __range: __range,
+    __dateCompare: __dateCompare,
+    __dateString: __dateString
+  };
 
-    return REGISTER;
-}
+  return REGISTER;
+};
 
 SelfTimer.prototype.messages = function() {
-
-    return {
-        day: 'Error: A day should be less than 31',
-        month: 'Error: month should be untll 12',
-        date: 'Error: date format shoud be MM-DD',
-        year: 'Error: date format shoud be 20YY',
-        monthBetween: 'Error: start of month should be less than end of month',
-        startHour: 'Error: start hour should be less than 23',
-        endHour: 'Error: end hour should be untill 23',
-        startDay: 'Error: start day should be less than 30',
-        endDay: 'Error: end day should be untill 31',
-        time: 'Error: invalid time format. time should be [hh:mm AM or PM]',
-        isNotArray: 'Error: first argument shold be Array',
-        dateGrater: "start date should not be grater than end-of -date",
-        dateSameDay: "start and end date are should not be same date "
-    }
+  return {
+    day: "Error: A day should be less than 31",
+    month: "Error: month should be untll 12",
+    date: "Error: date format shoud be MM-DD",
+    year: "Error: date format shoud be 20YY",
+    monthBetween: "Error: start of month should be less than end of month",
+    startHour: "Error: start hour should be less than 23",
+    endHour: "Error: end hour should be untill 23",
+    startDay: "Error: start day should be less than 30",
+    endDay: "Error: end day should be untill 31",
+    time: "Error: invalid time format. time should be [hh:mm AM or PM]",
+    isNotArray: "Error: first argument shold be Array",
+    dateGrater: "start date should not be grater than end-of -date",
+    dateSameDay: "start and end date are should not be same date "
+  };
 };
 
 SelfTimer.prototype.formats = function() {
-
-    return {
-      date: /^(1[0-2]|[1-9])-([1-9]|[12]\d|3[0-1])$/,
-      year: /^[2][0][1-9]{2}$/,
-      annual: /^[2]{1}[0]{1}[1-3]{1}[0-9]{1}-[01]{1}[0-9]{1}-[0-3]{1}[0-9]{1}$/,
-      time: /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/
-    };
-}
+  return {
+    date: /^(1[0-2]|[1-9])-([1-9]|[12]\d|3[0-1])$/,
+    year: /^[2][0][1-9]{2}$/,
+    annual: /^[2]{1}[0]{1}[1-3]{1}[0-9]{1}-[01]{1}[0-9]{1}-[0-3]{1}[0-9]{1}$/,
+    time: /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/
+  };
+};
 
 /**
  * [on description]
@@ -435,454 +424,343 @@ SelfTimer.prototype.on = function(condition) {
  * [at as Promise]
  * @type {[type]}
  */
-SelfTimer.prototype.at = (function(condition) {
+SelfTimer.prototype.at = function(condition) {
+  var _Condition = condition;
 
-    var _Condition = condition;
-
-    /**
+  /**
    * private variables
    */
-    var _Current = this.D;
-    var _day = this.D.getDay();
-    var _hour = this.D.getHours();
-    var _message = this.messages();
-    var _helper = this.helpers();
-    var _format = this.formats();
+  var _Current = this.D;
+  var _day = this.D.getDay();
+  var _hour = this.D.getHours();
+  var _message = this.messages();
+  var _helper = this.helpers();
+  var _format = this.formats();
 
-    /**
+  /**
      * [ at().Between description ]
      * @param  {[ String ]} from [ time format * hh:mm ]
      * @param  {[ String ]} to   [ time format * hh:mm ]
      * @return {[ Resolve }
      */
-    var Between = (function(from, to) {
+  var Between = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      try {
+        // check time format for start time
+        if (!from.match(_format.time)) throw _message.time + "at start";
 
-        return new Promise(function(resolve, reject) {
+        // check time format for end time
+        if (!to.match(_format.time)) throw _message.time + " at end";
 
-            try {
-                // check time format for start time
-                if (!from.match(_format.time))
-                    throw(_message.time + 'at start');
-                
-                // check time format for end time
-                if (!to.match(_format.time))
-                    throw(_message.time + ' at end');
-                
-                // check if current time is available
-                var available = _Current < _helper.__timeObject(to) && _Current > _helper.__timeObject(from)
-                    ? true
-                    : false;
+        // check if current time is available
+        var available = _Current < _helper.__timeObject(to) &&
+          _Current > _helper.__timeObject(from)
+          ? true
+          : false;
 
-                return available
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
+        return available
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Between()
 
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Between()
-
-    /**
+  /**
      * [ at().Unless description]
      * @param {[ String ]} from [ time format * hh:mm ]
      * @param {[ String ]} to [ time format * hh:mm ]
      * @return {[ Resolve ]}
      */
-    var Unless = (function(from, to) {
+  var Unless = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      try {
+        // check time format for start time
+        if (!from.match(_format.time)) throw _message.time + "at start";
 
-        return new Promise(function(resolve, reject) {
+        // check time format for end time
+        if (!to.match(_format.time)) throw _message.time + " at end";
 
-            try {
-                // check time format for start time
-                if (!from.match(_format.time))
-                    throw(_message.time + 'at start');
-                
-                // check time format for end time
-                if (!to.match(_format.time))
-                    throw(_message.time + ' at end');
-                
-                // check if current time is available
-                var available = _Current < _helper.__timeObject(to) && _Current > _helper.__timeObject(from)
-                    ? true
-                    : false;
+        // check if current time is available
+        var available = _Current < _helper.__timeObject(to) &&
+          _Current > _helper.__timeObject(from)
+          ? true
+          : false;
 
-                return available
-                    ? (_Condition === true)
-                        ? reject(false)
-                        : false
-                    : resolve(true);
+        return available
+          ? _Condition === true ? reject(false) : false
+          : resolve(true);
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Unless()
 
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Unless()
-
-    /**
+  /**
      * [ at().Hour description]
      * @param  {[ Integer ]} hour [ 0 - 23 ]
      * @return {[ Resolve ]}
      */
-    var Hour = (function(hour) {
+  var Hour = function(hour) {
+    return new Promise(function(resolve, reject) {
+      var time = parseInt(hour);
 
-        return new Promise(function(resolve, reject) {
+      try {
+        if (time > 23) throw _message.startHour;
 
-            var time = parseInt(hour);
+        return time === _hour
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Hour()
 
-            try {
-
-                if (time > 23)
-                    throw(_message.startHour);
-                
-                return time === _hour
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Hour()
-
-    /**
+  /**
      * PASS!
      * [ time().HoursBetween description ]
      * @param  {[ Integer ]} from [ Start hour 0-23 ]
      * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
      * @return {[ Resolve ]}
      */
-    var HoursBetween = (function(from, to) {
+  var HoursBetween = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      var start = parseInt(from);
+      var end = parseInt(to);
 
-        return new Promise(function(resolve, reject) {
+      try {
+        if (start > 23) throw _message.startHour;
 
-            var start = parseInt(from);
-            var end = parseInt(to);
+        if (end > 23) throw _message.endHour;
 
-            try {
+        var arr = _helper.__range(end, end - start);
+        arr.push(from);
 
-                if (start > 23)
-                    throw(_message.startHour);
-                
-                if (end > 23)
-                    throw(_message.endHour);
-                
-                var arr = _helper.__range(end, end - start);
-                arr.push(from)
+        return _helper.__contains(arr, _hour)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! HoursBetween()
 
-                return (_helper.__contains(arr, _hour))
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
+  // Register methods
+  var REGISTER = {
+    Between: Between,
+    Unless: Unless,
+    Hour: Hour,
+    HoursBetween: HoursBetween
+  };
 
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! HoursBetween()
-
-    // Register methods
-    var REGISTER = {
-        "Between": Between,
-        "Unless": Unless,
-        "Hour": Hour,
-        "HoursBetween": HoursBetween
-    };
-
-    return REGISTER;
-});
+  return REGISTER;
+};
 
 /**
  * [promise in ]
  */
-SelfTimer.prototype. in = (function(condition) {
+SelfTimer.prototype.in = function(condition) {
+  var _Condition = condition;
 
-    var _Condition = condition;
+  // private variables
+  var _message = this.messages();
+  var _helper = this.helpers();
+  var _format = this.formats();
 
-    // private variables
-    var _message = this.messages();
-    var _helper = this.helpers();
-    var _format = this.formats();
+  var _current = this.D;
+  var _date = this.D.getDate();
+  var _month = this.D.getMonth() + 1;
+  var _year = this.D.getFullYear();
 
-    var _current = this.D;
-    var _date = this.D.getDate();
-    var _month = this.D.getMonth() + 1;
-    var _year = this.D.getFullYear();
-
-    /**
+  /**
      * @param {[ Integer ]} day [* less than 31]
      * @return {[ Resolve ]}
      */
-    var Day = (function(day) {
+  var Day = function(day) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (parseInt(day) > 31) throw __message.day;
 
-        return new Promise(function(resolve, reject) {
+        var num = day < 10 ? "0" + day : day;
 
-            try {
+        return day == _date
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Day()
 
-                if (parseInt(day) > 31)
-                    throw(__message.day)
-
-                var num = (day < 10)
-                    ? '0' + day
-                    : day;
-
-                return (day == _date)
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Day()
-
-    /**
+  /**
      * [ in().Days description ]
      * @param  {[ Array ]} days [description]
      * @return {[ Resolve ]}      [description]
      */
-    var Days = (function(days) {
+  var Days = function(days) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (!Array.isArray(days)) throw _message.isNotArray;
 
-        return new Promise(function(resolve, reject) {
+        var array = days.map(function(res) {
+          // convert elemetnts to Integer in array
+          return parseInt(res);
+        });
 
-            try {
+        return _helper.__contains(array, _date)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Days()
 
-                if (!Array.isArray(days))
-                    throw(_message.isNotArray)
-
-                var array = days.map(function(res) {
-                    // convert elemetnts to Integer in array
-                    return parseInt(res);
-                });
-
-                return (_helper.__contains(array, _date))
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Days()
-
-    /**
+  /**
      * @param  {[ Integer ]} from
      * @param  {[ Integer ]} to
      * @return {[ Resolve ]}
      */
-    var DaysBetween = (function(from, to) {
+  var DaysBetween = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      try {
+        var start = parseInt(from);
+        var end = parseInt(to);
 
-        return new Promise(function(resolve, reject) {
+        if (start > 30) throw _message.startDay;
 
-            try {
+        if (end > 31) throw _message.endDay;
 
-                var start = parseInt(from);
-                var end = parseInt(to);
+        var arr = _helper.__range(end, end - start);
+        arr.push(from);
 
-                if (start > 30)
-                    throw(_message.startDay);
-                
-                if (end > 31)
-                    throw(_message.endDay);
-                
-                var arr = _helper.__range(end, end - start);
-                arr.push(from)
+        return _helper.__contains(arr, _date)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! DaysBetween()
 
-                return (_helper.__contains(arr, _date))
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! DaysBetween()
-
-    /**
+  /**
      * @param {[ Integer ]} month
      * @return {[ Resolve ]}
      */
-    var Month = (function(month) {
+  var Month = function(month) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (parseInt(month) > 12) throw _message.month;
 
-        return new Promise(function(resolve, reject) {
+        var num = month < 10 ? "0" + month : month;
 
-            try {
+        return num == _month
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Month()
 
-                if (parseInt(month) > 12)
-                    throw(_message.month);
-                
-                var num = (month < 10)
-                    ? '0' + month
-                    : month;
-
-                return (num == _month)
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Month()
-
-
-    /**
+  /**
      * [MonthSelects description]
      * @param  {[ Integer ]} months
      * @return {[ Resolve ]}
      */
-    var MonthSelects = (function(months) {
+  var MonthSelects = function(months) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (!Array.isArray(months)) throw _message.isNotArray;
 
-        return new Promise(function(resolve, reject) {
+        return _helper.__contains(months, _month)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! MonthSelects
 
-            try {
-
-                if (!Array.isArray(months))
-                    throw(_message.isNotArray);
-                
-                return (_helper.__contains(months, _month))
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! MonthSelects
-
-    /**
+  /**
      * @param {[ Integer ]} year
      * @return {[ Function ]}
      */
-    var Year = (function(year) {
+  var Year = function(year) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (!year.toString().match(_format.year)) throw _message.year;
 
-        return new Promise(function(resolve, reject) {
+        return year == _year
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    }); // ! Promise()
+  }; // ! Year()
 
-            try {
+  // register methods
+  var REGISTER = {
+    Day: Day,
+    Days: Days,
+    DaysBetween: DaysBetween,
+    Month: Month,
+    MonthSelects: MonthSelects,
+    Year: Year
+  };
 
-                if (!(year.toString()).match(_format.year))
-                    throw(_message.year);
-                
-                return (year == _year)
-                    ? resolve(true)
-                    : (_Condition === true)
-                        ? reject(false)
-                        : false;
-
-            } catch (e) {
-                console.error(e);
-                return;
-            }
-
-        }); // ! Promise()
-
-    }); // ! Year()
-
-    // register methods
-    var REGISTER = {
-        "Day": Day,
-        "Days": Days,
-        "DaysBetween": DaysBetween,
-        "Month": Month,
-        "MonthSelects": MonthSelects,
-        "Year": Year
-    };
-
-    return REGISTER;
-
-});
+  return REGISTER;
+};
 
 /**
  * [is() promise]
  */
-SelfTimer.prototype.is = (function(condition) {
+SelfTimer.prototype.is = function(condition) {
+  var _Condition = condition;
 
-    var _Condition = condition;
-
-    /**
+  /**
      * [ if status is true, return callback ]
      * @param {[ Bool ]} status
      * @param {[ Bool ]} condition
      * @return {[ Resolve ]}
      */
-    var True = (function(status) {
+  var True = function(status) {
+    return new Promise(function(resolve, reject) {
+      return status
+        ? resolve(true)
+        : _Condition === true ? reject(false) : false;
+    }); // ! Promise()
+  }; // ! True()
 
-        return new Promise(function(resolve, reject) {
-
-            return status
-                ? resolve(true)
-                : (_Condition === true)
-                    ? reject(false)
-                    : false;
-
-        }); // ! Promise()
-
-    }); // ! True()
-
-    /**
+  /**
      * - browser only! -
      * [ if status is false, return callback ]
      * @param {[ Bool ]} status
      * @param {[ Bool ]} condition
      * @return {[ Resolve ]}
      */
-    var False = (function(status) {
+  var False = function(status) {
+    return new Promise(function(resolve, reject) {
+      return status
+        ? _Condition === true ? reject(false) : false
+        : resolve(true);
+    }); // ! Promise()
+  }; // ! False()
 
-        return new Promise(function(resolve, reject) {
-
-            return status
-                ? (_Condition === true)
-                    ? reject(false)
-                    : false
-                : resolve(true);
-
-        }); // ! Promise()
-
-    }); // ! False()
-
-    /**
+  /**
      * - browser only! -
      * [ if mutch browser language value, return callback ]
      * @param {[ String ]} lang
@@ -890,56 +768,43 @@ SelfTimer.prototype.is = (function(condition) {
      * @return {[ Resolve ]}
      * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
      */
-    var Language = (function(lang) {
+  var Language = function(lang) {
+    return new Promise(function(resolve, reject) {
+      var detect = navigator.userLanguage === "undefined"
+        ? navigator.userLanguage
+        : navigator.language;
 
-        return new Promise(function(resolve, reject) {
+      return lang == detect
+        ? resolve(true)
+        : _Condition === true ? reject(false) : false;
+    }); // ! Promise()
+  }; // ! Language()
 
-            var detect = navigator.userLanguage === 'undefined'
-                ? navigator.userLanguage
-                : navigator.language;
-
-            return (lang == detect)
-                ? resolve(true)
-                : (_Condition === true)
-                    ? reject(false)
-                    : false;
-
-        }); // ! Promise()
-
-    }); // ! Language()
-
-    /**
+  /**
     * [ if match browser language value, return callback, but this one enable short value ]
     * @param {[ String ]} lang
     * @param {[ Bool ]} condition
     * @return {[ Function ]}
      */
-    var Lang = (function(lang) {
+  var Lang = function(lang) {
+    return new Promise(function(resolve, reject) {
+      var detect = navigator.userLanguage === "undefined"
+        ? navigator.userLanguage
+        : navigator.language;
 
-        return new Promise(function(resolve, reject) {
+      return lang == detect.slice(0, 2)
+        ? resolve(true)
+        : _Condition === true ? reject(false) : false;
+    }); // ! Proimse
+  }; // ! Lang()
 
-            var detect = navigator.userLanguage === 'undefined'
-                ? navigator.userLanguage
-                : navigator.language;
+  // register methods
+  var REGISTER = {
+    True: True,
+    False: False,
+    Language: Language,
+    Lang: Lang
+  };
 
-            return (lang == detect.slice(0, 2))
-                ? resolve(true)
-                : (_Condition === true)
-                    ? reject(false)
-                    : false;
-
-        }); // ! Proimse
-
-    }); // ! Lang()
-
-    // register methods
-    var REGISTER = {
-        "True": True,
-        "False": False,
-        "Language": Language,
-        "Lang": Lang
-    };
-
-    return REGISTER;
-
-});
+  return REGISTER;
+};
