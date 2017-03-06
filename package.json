@@ -1,6 +1,6 @@
 {
   "name": "self-timer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "light-weight callback runner.",
   "main": "./dist/selftimer.min.js",
   "scripts": {

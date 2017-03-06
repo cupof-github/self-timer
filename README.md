@@ -97,7 +97,7 @@ Using CDN:
 **.at( )**
 
 - Between(), Unless()
-- Hour(), HoursBetween()
+- Hour(), HoursBetween(), HourSelects()
 
 **.in( )**
 

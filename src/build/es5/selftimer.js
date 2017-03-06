@@ -165,7 +165,9 @@ SelfTimer.prototype.messages = function() {
     year: "Error: date format shoud be 20YY",
     monthBetween: "Error: start of month should be less than end of month",
     startHour: "Error: start hour should be less than 23",
-    endHour: "Error: end hour should be untill 23",
+    endHour: "Error: end hour should be until 23",
+    hourFormat: "Error: hours should be numberic",
+    isNotValidHour: "Error: hour should be until 23",
     startDay: "Error: start day should be less than 30",
     endDay: "Error: end day should be untill 31",
     time: "Error: invalid time format. time should be [hh:mm AM or PM]",
@@ -451,7 +453,7 @@ SelfTimer.prototype.at = function() {
         return;
       }
     } // ! if()
-  };
+  }; // ! Between()
 
   /**
      * [ at().Unless description]
@@ -481,7 +483,7 @@ SelfTimer.prototype.at = function() {
         return;
       }
     }
-  };
+  }; // ! Unless()
 
   /**
      * [ at().Hour description]
@@ -502,7 +504,7 @@ SelfTimer.prototype.at = function() {
         return;
       }
     } // ! if()
-  };
+  }; // ! Hour()
 
   /**
      * PASS!
@@ -533,14 +535,50 @@ SelfTimer.prototype.at = function() {
         return;
       }
     }
-  };
+  }; // ! HoursBetween()
+
+  /**
+   * [at().HourSelects]
+   * @param  {[ array ]} hours [ 0 - 23 ]
+   * @param  {[ Function ]} task [description]
+   * @return {[ Function || Bool ]}  [ callback || bool ]
+   */
+  var HourSelects = function(hours, task) {
+    if (_helper.__checkIsValid(task)) {
+      try {
+        if (!Array.isArray(hours)) throw _message.isNotArray;
+
+        // check array elements if numberic
+        if (!hours.some(isNaN) != true) throw _message.hourFormat;
+
+        var array = hours
+          .map(function(res) {
+            // convert elemetnts to Integer in array
+            return parseInt(res);
+          });
+
+          array.map(function(res) {
+            // check elements if valid hour format
+            if (res > 23) throw _message.isNotValidHour;
+          });
+
+        if (_helper.__contains(array, _hour)) {
+          return task !== undefined ? task() : true;
+        } // ! if
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    } // ! if()
+  }; // ! HourSelects()
 
   // Register methods
   var REGISTER = {
     Between: Between,
     Unless: Unless,
     Hour: Hour,
-    HoursBetween: HoursBetween
+    HoursBetween: HoursBetween,
+    HourSelects: HourSelects
   };
 
   return REGISTER;
