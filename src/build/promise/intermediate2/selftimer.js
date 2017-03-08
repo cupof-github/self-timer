@@ -53,7 +53,7 @@ SelfTimer.prototype.helpers = function() {
     }
 
     return false;
-  };
+  }; // ! __contains()
 
   /**
      * [ Replace a strings to individual numbers in array ]
@@ -86,7 +86,7 @@ SelfTimer.prototype.helpers = function() {
       .map(function(res) {
         return parseInt(res);
       });
-  };
+  }; // ! __dayOfTheWeekStringToNumber()
 
   /**
      * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
@@ -101,7 +101,7 @@ SelfTimer.prototype.helpers = function() {
     date.setHours(+parts.shift());
     date.setMinutes(+parts.shift());
     return date;
-  };
+  }; // ! __timeObject()
 
   /**
      * @param  {[ Integer ]} start
@@ -122,7 +122,7 @@ SelfTimer.prototype.helpers = function() {
     }
 
     return arr;
-  };
+  }; // ! __range()
 
   /**
      * @param  {[ Date ]} from
@@ -134,14 +134,14 @@ SelfTimer.prototype.helpers = function() {
     return current < to.setDate(to.getDate() + 1) && current > from
       ? true
       : false;
-  };
+  }; // ! __dateCompare()
 
   /**
-     * @param  {[ Integer ]} from
-     * @param  {[ Integer ]} to
-     * @return {[ String]}      [ splieted Date]
-     * Ref: http://stackoverflow.com/a/23593099/2704539
-     */
+    * @param  {[ Integer ]} from
+    * @param  {[ Integer ]} to
+    * @return {[ String]}      [ splieted Date]
+    * Ref: http://stackoverflow.com/a/23593099/2704539
+    */
   var __dateString = function() {
     var month = _current.getMonth() + 1;
     var day = _current.getDate();
@@ -151,7 +151,39 @@ SelfTimer.prototype.helpers = function() {
     if (day.length < 2) day = "0" + day;
 
     return [month, day].join("-");
-  };
+  }; // ! __dateString()
+
+  /**
+   ** @param {[ String ]} type
+    * @return {[Integer || bool]}
+    */
+  var __typeToMilliseconds = function(type) {
+    var response;
+
+    switch (type) {
+      // a second
+      case "s":
+      case "sec":
+      case "second":
+      case "seconds":
+        response = 1000;
+        break;
+
+      // a minute
+      case "m":
+      case "min":
+      case "minute":
+      case "minutes":
+        response = 60000;
+        break;
+
+      default:
+        response = false;
+        break;
+    } // ! switch()
+
+    return response;
+  }; // ! __typeToMilliseconds()
 
   // Register methods
   var REGISTER = {
@@ -161,7 +193,8 @@ SelfTimer.prototype.helpers = function() {
     __timeObject: __timeObject,
     __range: __range,
     __dateCompare: __dateCompare,
-    __dateString: __dateString
+    __dateString: __dateString,
+    __typeToMilliseconds: __typeToMilliseconds
   };
 
   return REGISTER;
