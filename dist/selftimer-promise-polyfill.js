@@ -185,6 +185,15 @@ SelfTimer.prototype.helpers = function() {
     return response;
   }; // ! __typeToMilliseconds()
 
+  /**
+   * @return {[ String ]}
+   */
+  var __detectLang = function() {
+    return navigator.userLanguage === "undefined"
+      ? navigator.userLanguage
+      : navigator.language;
+  } // ! __detectLang()
+
   // Register methods
   var REGISTER = {
     __checkIsValid: __checkIsValid,
@@ -194,7 +203,8 @@ SelfTimer.prototype.helpers = function() {
     __range: __range,
     __dateCompare: __dateCompare,
     __dateString: __dateString,
-    __typeToMilliseconds: __typeToMilliseconds
+    __typeToMilliseconds: __typeToMilliseconds,
+    __detectLang: __detectLang
   };
 
   return REGISTER;
