@@ -1,11 +1,14 @@
 # self-timer.js Change log
 
+## version 1.3.0
+added `timer().After` method
+
 ## version 1.2.0
-add `at().HourSelects` method.
+added `at().HourSelects` method.
 
 ## version 1.1.0
 
-add `on().DateContain` method.
+added `on().DateContain` method.
 
 ## version 1.0.0
 

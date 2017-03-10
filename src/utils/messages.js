@@ -1,4 +1,6 @@
-SelfTimer.prototype.messages = function() {
+SelfTimer.prototype.messages = function(val) {
+
+
   return {
     day: "Error: A day should be less than 31",
     month: "Error: month should be untll 12",
@@ -14,6 +16,12 @@ SelfTimer.prototype.messages = function() {
     time: "Error: invalid time format. time should be [hh:mm AM or PM]",
     isNotArray: "Error: first argument shold be Array",
     dateGrater: "start date should not be grater than end-of -date",
-    dateSameDay: "start and end date are should not be same date "
+    dateSameDay: "start and end date are should not be same date ",
+    timeFormat: "Error: time of type formats",
+    numFormat: "Error: num should be numberic",
+    taskFormat: "Error: " + val + " should be object or function",
+    notExist: "Error: " + val + " not exist",
+    shouldBeFunction: "Error: " + val + " is shold be function"
+
   };
 };

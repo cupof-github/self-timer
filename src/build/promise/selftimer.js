@@ -190,7 +190,9 @@ SelfTimer.prototype.helpers = function() {
   return REGISTER;
 };
 
-SelfTimer.prototype.messages = function() {
+SelfTimer.prototype.messages = function(val) {
+
+
   return {
     day: "Error: A day should be less than 31",
     month: "Error: month should be untll 12",
@@ -206,7 +208,13 @@ SelfTimer.prototype.messages = function() {
     time: "Error: invalid time format. time should be [hh:mm AM or PM]",
     isNotArray: "Error: first argument shold be Array",
     dateGrater: "start date should not be grater than end-of -date",
-    dateSameDay: "start and end date are should not be same date "
+    dateSameDay: "start and end date are should not be same date ",
+    timeFormat: "Error: time of type formats",
+    numFormat: "Error: num should be numberic",
+    taskFormat: "Error: " + val + " should be object or function",
+    notExist: "Error: " + val + " not exist",
+    shouldBeFunction: "Error: " + val + " is shold be function"
+
   };
 };
 
@@ -872,6 +880,138 @@ SelfTimer.prototype.is = function(condition) {
     False: False,
     Language: Language,
     Lang: Lang
+  };
+
+  return REGISTER;
+};
+
+/**
+ * Promise
+ * [SelfTimer.prototype.timer ]
+ * @return {[ Methods ]}
+ */
+SelfTimer.prototype.timer = function() {
+  var _message = this.messages();
+  var _helper = this.helpers();
+
+  /**
+   * [ timer().After ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @return {[ Resolve ]}
+   */
+  var After = function(type, num, task) {
+    return new Promise(function(resolve) {
+      var milliseconds = _helper.__typeToMilliseconds(type);
+
+      var taskType = typeof task;
+
+      try {
+        // checking type : second, minute .. and so
+        if (!milliseconds) throw _message.timeFormat;
+
+        // check num
+        if (isNaN(num)) throw _message.numFormat;
+        if (num === 0 || num === "0") throw _message.numFormat;
+
+        if (!_helper.__contains(["object", "function", "undefined"], taskType))
+          throw this.messages("type").taskFormat;
+
+        if (taskType === "object") {
+          // check exists keys
+          if (!("before" in task)) throw this.messages("key:before").notExist;
+
+          // value validation in object
+          if (typeof task.before !== "function")
+            throw this.messages("before").shouldBeFunction;
+
+          // execute callback in before
+          task.before();
+
+          return setTimeout(
+            function() {
+              // execute callback resolve
+              return resolve(true);
+            },
+            num * milliseconds
+          ); // ! setTimeout()
+        } else {
+          // if (taskType === "function") {
+          return setTimeout(
+            function() {
+              return resolve(true);
+            },
+            num * milliseconds
+          ); // ! setTimeout()
+        } // ! else
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    });
+  }; // ! After()
+
+  /**
+   * [ timer().Every ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @return {[ Resolve ]}
+   */
+  // var Every = function(type, num) {
+  //   return new Promise(function(resolve) {
+  //     var milliseconds = _helper.__typeToMilliseconds(type);
+  //
+  //     var taskType = typeof task;
+  //
+  //     try {
+  //       // checking type : second, minute .. and so
+  //       if (!milliseconds) throw _message.timeFormat;
+  //
+  //       // check num
+  //       if (isNaN(num)) throw _message.numFormat;
+  //       if (num === 0 || num === "0") throw _message.numFormat;
+  //
+  //       if (!_helper.__contains(["object", "function", "undefined"], taskType))
+  //         throw this.messages("type").taskFormat;
+  //
+  //       if (taskType === "object") {
+  //         // check exists keys
+  //         if (!("before" in task)) throw this.messages("key:before").notExist;
+  //
+  //         // value validation in object
+  //         if (typeof task.before !== "function")
+  //           throw this.messages("before").shouldBeFunction;
+  //
+  //         // execute callback in before
+  //         task.before();
+  //
+  //         return setInterval(
+  //           function() {
+  //             // execute callback resolve
+  //             return resolve(true);
+  //           },
+  //           num * milliseconds
+  //         ); // ! setInterval()
+  //       } else {
+  //         // if (taskType === "function") {
+  //         return setInterval(
+  //           function() {
+  //             return resolve(true);
+  //           },
+  //           num * milliseconds
+  //         ); // ! setInterval()
+  //       } // ! else
+  //     } catch (e) {
+  //       console.error(e);
+  //       return;
+  //     } // ! Exception
+  //   });
+  // }; // ! Every()
+
+  // register methods
+  var REGISTER = {
+    After: After
+    // Every: Every
   };
 
   return REGISTER;
