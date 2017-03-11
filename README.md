@@ -120,9 +120,9 @@ Using CDN:
 
 **self-timer.js** have 2 types and 3 diffrents of files. You may choose them in right scene.
 
-- callback style [ selftimer.js ( .min.js: **7KB** ) ]
-- promise style [ selftimer-promise.js ( .min.js: **7KB** ) ]
-- promise style with Polyfill [ selftimer-promise-polyfill.js (.min.js: **10KB**) ]
+- callback style [ selftimer.js ( .min.js ) ]
+- promise style [ selftimer-promise.js ( .min.js ) ]
+- promise style with Polyfill [ selftimer-promise-polyfill.js ( .min.js ) ]
 
 _Note:_ selftimer-promise-polyfill is including **[taylorhakes/promise-polyfill](https://github.com/taylorhakes/promise-polyfill)**. very thanks!
 
@@ -145,7 +145,7 @@ st.on()
 </script>
 ```
 
-**ES6 style && CommonJS**
+**ES6 style & CommonJS**
 
 ```javascript
 /* callback */
