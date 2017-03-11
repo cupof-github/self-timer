@@ -3,6 +3,10 @@
  * @type {Boolean}
  */
 SelfTimer.prototype.is = function() {
+  // private variables
+  var _helper = this.helpers();
+  var _message = this.messages();
+
   /**
      * [ if condition is true, return callback ]
      * @param {[ Bool ]} condition
@@ -31,11 +35,15 @@ SelfTimer.prototype.is = function() {
      * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
      */
   var Language = function(lang, task) {
-    var detect = navigator.userLanguage === "undefined"
-      ? navigator.userLanguage
-      : navigator.language;
+    try {
+      if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-    if (lang == detect) return task !== undefined ? task() : true;
+      if (lang == _helper.__detectLang())
+        return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
   }; // ! Language()
 
   /**
@@ -45,20 +53,113 @@ SelfTimer.prototype.is = function() {
      * @return {[ Function ]}
      */
   var Lang = function(lang, task) {
-    var detect = navigator.userLanguage === "undefined"
-      ? navigator.userLanguage
-      : navigator.language;
+    try {
+      if (window === "undefined") throw this.messages("Lang").onlyBrowser;
 
-    if (lang == detect.slice(0, 2)) return task !== undefined ? task() : true;
+      var detect = _helper.__detectLang();
+
+      if (lang == detect.slice(0, 2)) return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
   }; // ! Lang()
+
+  /**
+   * @param {[ Array ]} languages
+   * @param {[ Function ]} task
+   * @return {{ Function }}
+   */
+  var LanguageSelects = function(languages, task) {
+    try {
+      if (window === "undefined")
+        throw this.messages("LanguageSelects").onlyBrowser;
+
+      if (!Array.isArray(languages)) throw _message.isNotArray;
+
+      if (_helper.__contains(languages, _helper.__detectLang()))
+        return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
+  }; // ! LanguageSelects()
+
+  /**
+   * @param {[ Array ]} lang
+   * @param {[ Function ]} task
+   * @return {[ Functin ]}
+   */
+  var LangSelects = function(lang, task) {
+    try {
+      if (window === "undefined")
+        throw this.messages("LangSelects").onlyBrowser;
+
+      if (!Array.isArray(lang)) throw _message.isNotArray;
+
+      var detect = _helper.__detectLang();
+
+      if (_helper.__contains(lang, detect.slice(0, 2)))
+        return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
+  }; // ! LangSelects()
+
+  /**
+   * @param {[ Array ]} lang
+   * @param {[ Function ]} task
+   * @return {[ Functin ]}
+   */
+  var LanguageExcepts = function(languages, task) {
+    try {
+      if (window === "undefined")
+        throw this.messages("LanguageExcepts").onlyBrowser;
+
+      if (!Array.isArray(languages)) throw _message.isNotArray;
+
+      if (!_helper.__contains(languages, _helper.__detectLang()))
+        return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
+  }; // ! LanguageExcepts()
+
+  /**
+   * @param {[ Array ]} lang
+   * @param {[ Function ]} task
+   * @return {[ Functin ]}
+   */
+  var LangExcepts = function(lang, task) {
+    try {
+      if (window === "undefined")
+        throw this.messages("LangExcepts").onlyBrowser;
+
+      if (!Array.isArray(lang)) throw _message.isNotArray;
+
+      var detect = _helper.__detectLang();
+
+      if (!_helper.__contains(lang, detect.slice(0, 2)))
+        return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // ! Exception
+  }; // ! LangExcepts()
 
   // register methods
   var REGISTER = {
     True: True,
     False: False,
     Language: Language,
-    Lang: Lang
-  };
+    Lang: Lang,
+    LanguageSelects: LanguageSelects,
+    LangSelects: LangSelects,
+    LanguageExcepts: LanguageExcepts,
+    LangExcepts: LangExcepts
+  }; // REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.is()

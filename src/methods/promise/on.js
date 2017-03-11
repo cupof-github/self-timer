@@ -229,7 +229,7 @@ SelfTimer.prototype.on = function(condition) {
     Annual: Annual,
     DatesBetween: DatesBetween,
     DatesContain: DatesContain
-  };
+  }; // ! REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.on

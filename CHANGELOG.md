@@ -1,5 +1,13 @@
 # self-timer.js Change log
 
+## version 1.4.0
+added some methods in `is()` group
+** ES5 & Promise **
+ - `is().LanguageSelects`
+ - `is().LangSelects`
+ - `is().LanguageExcepts`
+ - `is().LangExcepts`
+
 ## version 1.3.0
 added `timer().After` method
 
