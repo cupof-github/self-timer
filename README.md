@@ -70,7 +70,7 @@ st.in(true)
 Using npm:
 
 ```bash
-npm install self-timer
+npm install self-timer --save
 ```
 
 Using CDN:
