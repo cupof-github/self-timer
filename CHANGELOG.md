@@ -1,5 +1,8 @@
 # self-timer.js Change log
 
+## version 1.4.1 2017/03/12
+added `info()` method
+
 ## version 1.4.0
 added some methods in `is()` group
 ** ES5 & Promise **
