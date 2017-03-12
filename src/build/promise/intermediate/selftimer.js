@@ -189,9 +189,18 @@ SelfTimer.prototype.helpers = function() {
    */
   var __detectLang = function() {
     return navigator.userLanguage === "undefined"
-      ? navigator.userLanguage
-      : navigator.language;
+      ? navigator.userLanguage.toLowerCase()
+      : navigator.language.toLowerCase();
   }; // ! __detectLang()
+
+  /**
+   * @return {[ Array ]}
+   */
+  var __arrayToLower = function(arr) {
+    return arr.map(function(val) {
+      return val.toLowerCase();
+    });
+  };
 
   // Register methods
   var REGISTER = {
@@ -203,7 +212,8 @@ SelfTimer.prototype.helpers = function() {
     __dateCompare: __dateCompare,
     __dateString: __dateString,
     __typeToMilliseconds: __typeToMilliseconds,
-    __detectLang: __detectLang
+    __detectLang: __detectLang,
+    __arrayToLower: __arrayToLower
   }; // ! REGISTER
 
   return REGISTER;
@@ -911,7 +921,7 @@ SelfTimer.prototype.is = function(condition) {
       try {
         if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-        return lang == _helper.__detectLang()
+        return lang.toLowerCase() == _helper.__detectLang()
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -934,7 +944,7 @@ SelfTimer.prototype.is = function(condition) {
 
         var detect = _helper.__detectLang();
 
-        return lang == detect.slice(0, 2)
+        return lang.toLowerCase() == detect.slice(0, 2)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -957,7 +967,10 @@ SelfTimer.prototype.is = function(condition) {
 
         if (!Array.isArray(languages)) throw _message.isNotArray;
 
-        return _helper.__contains(languages, _helper.__detectLang())
+        return _helper.__contains(
+          _helper.__arrayToLower(languages),
+          _helper.__detectLang()
+        )
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -981,7 +994,10 @@ SelfTimer.prototype.is = function(condition) {
 
       var detect = _helper.__detectLang();
 
-      return _helper.__contains(lang, detect.slice(0, 2))
+      return _helper.__contains(
+        _helper.__arrayToLower(lang),
+        detect.slice(0, 2)
+      )
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -1002,7 +1018,10 @@ SelfTimer.prototype.is = function(condition) {
 
       if (!Array.isArray(languages)) throw _message.isNotArray;
 
-      return !_helper.__contains(languages, _helper.__detectLang())
+      return !_helper.__contains(
+        _helper.__arrayToLower(languages),
+        _helper.__detectLang()
+      )
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -1025,7 +1044,10 @@ SelfTimer.prototype.is = function(condition) {
 
       var detect = _helper.__detectLang();
 
-      return !_helper.__contains(lang, detect.slice(0, 2))
+      return !_helper.__contains(
+        _helper.__arrayToLower(lang),
+        detect.slice(0, 2)
+      )
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {

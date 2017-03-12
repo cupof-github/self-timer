@@ -38,7 +38,7 @@ SelfTimer.prototype.is = function() {
     try {
       if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-      if (lang == _helper.__detectLang())
+      if (lang.toLowerCase() == _helper.__detectLang())
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -58,7 +58,8 @@ SelfTimer.prototype.is = function() {
 
       var detect = _helper.__detectLang();
 
-      if (lang == detect.slice(0, 2)) return task !== undefined ? task() : true;
+      if (lang.toLowerCase() == detect.slice(0, 2))
+        return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
       return;
@@ -77,7 +78,12 @@ SelfTimer.prototype.is = function() {
 
       if (!Array.isArray(languages)) throw _message.isNotArray;
 
-      if (_helper.__contains(languages, _helper.__detectLang()))
+      if (
+        _helper.__contains(
+          _helper.__arrayToLower(languages),
+          _helper.__detectLang()
+        )
+      )
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -99,7 +105,7 @@ SelfTimer.prototype.is = function() {
 
       var detect = _helper.__detectLang();
 
-      if (_helper.__contains(lang, detect.slice(0, 2)))
+      if (_helper.__contains(_helper.__arrayToLower(lang), detect.slice(0, 2)))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -119,7 +125,12 @@ SelfTimer.prototype.is = function() {
 
       if (!Array.isArray(languages)) throw _message.isNotArray;
 
-      if (!_helper.__contains(languages, _helper.__detectLang()))
+      if (
+        !_helper.__contains(
+          _helper.__arrayToLower(languages),
+          _helper.__detectLang()
+        )
+      )
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -141,7 +152,7 @@ SelfTimer.prototype.is = function() {
 
       var detect = _helper.__detectLang();
 
-      if (!_helper.__contains(lang, detect.slice(0, 2)))
+      if (!_helper.__contains(_helper.__arrayToLower(lang), detect.slice(0, 2)))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);

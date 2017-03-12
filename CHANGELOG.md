@@ -1,6 +1,11 @@
 # self-timer.js Change log
 
-## version 1.4.1 2017/03/12
+## version 1.4.2 [ 2017/03/12 ]
+enhanced `is().Lang*` methods.
+
+now you can use insensitive characters for detect browser-language, like `**en-us** or **en-US**`.
+
+## version 1.4.1 [ 2017/03/12 ]
 added `info()` method
 
 ## version 1.4.0
