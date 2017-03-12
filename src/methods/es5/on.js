@@ -6,18 +6,18 @@ SelfTimer.prototype.on = function() {
   // Private Variables
   var _current = this.D;
   var _day = this.D.getDay();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
    * @param {[ Function ]} task [ callback ]
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Sunday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 0) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Sunday()
 
   /**
@@ -25,9 +25,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Monday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 1) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Monday()
 
   /**
@@ -35,9 +35,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Tuesday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 2) return task != undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Tuesday()
 
   /**
@@ -45,9 +45,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]} [ Your callback ]
    */
   var Wednesday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 3) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Wednesday()
 
   /**
@@ -55,9 +55,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Thursday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 4) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Thursday()
 
   /**
@@ -65,9 +65,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Friday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 5) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Friday()
 
   /**
@@ -75,9 +75,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Saturday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 6) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Saturday()
 
   /**
@@ -87,20 +87,20 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Selects = function(daysOfTheWeek, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(daysOfTheWeek)) throw _message.isNotArray;
+        if (!Array.isArray(daysOfTheWeek)) throw _msg.isNotArray;
 
         // convert Date to week-number
-        var arr = _helper.__dayOfTheWeekStringToNumber(daysOfTheWeek);
+        var arr = _h.__dayOfTheWeekStringToNumber(daysOfTheWeek);
 
-        if (_helper.__contains(arr, _day)) {
+        if (_h.__contains(arr, _day)) {
           return task !== undefined ? task() : true;
         } // ! if()
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Selects()
 
@@ -110,14 +110,14 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Weekdays = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       // Monday to Friday
       var dayOfTheWeek = [1, 2, 3, 4, 5];
 
-      if (_helper.__contains(dayOfTheWeek, _day)) {
+      if (_h.__contains(dayOfTheWeek, _day)) {
         return task !== undefined ? task() : true;
-      }
-    }
+      } // ! if()
+    } // ! if()
   }; // ! Weekdays()
 
   /**
@@ -126,14 +126,14 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Weekend = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       // Sunday and Saturday
       var dayOfTheWeek = [0, 6];
 
-      if (_helper.__contains(dayOfTheWeek, _day)) {
+      if (_h.__contains(dayOfTheWeek, _day)) {
         return task !== undefined ? task() : true;
-      }
-    } // ! if
+      } // ! if()
+    } // ! if()
   }; // ! Weekend()
 
   /**
@@ -142,16 +142,16 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}
    */
   var Annual = function(date, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!date.match(_format.date)) throw _message.date;
+        if (!date.match(_fmt.date)) throw _msg.date;
 
-        if (date == _helper.__dateString())
+        if (date == _h.__dateString())
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Annual()
 
@@ -164,21 +164,21 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}      [ callback ]
    */
   var DatesBetween = function(from, to, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       var start = new Date(from);
       var end = new Date(to);
 
       try {
-        if (start > end) throw _message.dateGrater;
+        if (start > end) throw _msg.dateGrater;
 
-        if (start == end) throw _message.dateSameDay;
+        if (start == end) throw _msg.dateSameDay;
 
-        if (_helper.__dateCompare(start, end, _current))
+        if (_h.__dateCompare(start, end, _current))
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! DatesBetween()
 
@@ -189,20 +189,19 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}      [ callback ]
    */
   var DatesContain = function(dates, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(dates)) throw _message.isNotArray;
+        if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        if (_helper.__contains(dates, _current.toISOString().slice(0, 10)))
+        if (_h.__contains(dates, _current.toISOString().slice(0, 10)))
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! DatesContain()
 
-  // Register methods
   var REGISTER = {
     Sunday: Sunday,
     Monday: Monday,
@@ -217,7 +216,7 @@ SelfTimer.prototype.on = function() {
     Annual: Annual,
     DatesBetween: DatesBetween,
     DatesContain: DatesContain
-  };
+  }; // REGISTER
 
   return REGISTER;
 };

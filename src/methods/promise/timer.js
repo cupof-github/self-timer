@@ -4,8 +4,8 @@
  * @return {[ Methods ]}
  */
 SelfTimer.prototype.timer = function() {
-  var _message = this.messages();
-  var _helper = this.helpers();
+  var _msg = this.messages();
+  var _h = this.helpers();
 
   /**
    * [ timer().After ]
@@ -15,19 +15,19 @@ SelfTimer.prototype.timer = function() {
    */
   var After = function(type, num, task) {
     return new Promise(function(resolve) {
-      var milliseconds = _helper.__typeToMilliseconds(type);
+      var milliseconds = _h.__typeToMilliseconds(type);
 
       var taskType = typeof task;
 
       try {
         // checking type : second, minute .. and so
-        if (!milliseconds) throw _message.timeFormat;
+        if (!milliseconds) throw _msg.timeFormat;
 
         // check num
-        if (isNaN(num)) throw _message.numFormat;
-        if (num === 0 || num === "0") throw _message.numFormat;
+        if (isNaN(num)) throw _msg.numFormat;
+        if (num === 0 || num === "0") throw _msg.numFormat;
 
-        if (!_helper.__contains(["object", "function", "undefined"], taskType))
+        if (!_h.__contains(["object", "function", "undefined"], taskType))
           throw this.messages("type").taskFormat;
 
         if (taskType === "object") {
@@ -72,19 +72,19 @@ SelfTimer.prototype.timer = function() {
    */
   // var Every = function(type, num) {
   //   return new Promise(function(resolve) {
-  //     var milliseconds = _helper.__typeToMilliseconds(type);
+  //     var milliseconds = _h.__typeToMilliseconds(type);
   //
   //     var taskType = typeof task;
   //
   //     try {
   //       // checking type : second, minute .. and so
-  //       if (!milliseconds) throw _message.timeFormat;
+  //       if (!milliseconds) throw _msg.timeFormat;
   //
   //       // check num
-  //       if (isNaN(num)) throw _message.numFormat;
-  //       if (num === 0 || num === "0") throw _message.numFormat;
+  //       if (isNaN(num)) throw _msg.numFormat;
+  //       if (num === 0 || num === "0") throw _msg.numFormat;
   //
-  //       if (!_helper.__contains(["object", "function", "undefined"], taskType))
+  //       if (!_h.__contains(["object", "function", "undefined"], taskType))
   //         throw this.messages("type").taskFormat;
   //
   //       if (taskType === "object") {
@@ -121,11 +121,10 @@ SelfTimer.prototype.timer = function() {
   //   });
   // }; // ! Every()
 
-  // register methods
   var REGISTER = {
     After: After
     // Every: Every
-  };
+  }; // REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.timer

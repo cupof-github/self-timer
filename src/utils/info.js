@@ -4,7 +4,7 @@
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.2",
+    version: "1.4.3",
     method: {
       on: [
         "Sunday",
@@ -34,6 +34,6 @@ SelfTimer.prototype.info = function() {
         "LangExcepts"
       ],
       timer: ["After"]
-    }
+    } // ! method
   }; // ! return
 }; // ! SelfTimer.prototype.info

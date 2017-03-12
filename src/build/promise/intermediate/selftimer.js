@@ -26,24 +26,24 @@ SelfTimer.prototype.helpers = function() {
   var _day = this.D.getDay();
 
   /**
-     * [__checkIsValid description]
-     * @param  {[type]} variable [description]
-     * @return {[type]}          [description]
-     */
+   * [__checkIsValid description]
+   * @param  {[type]} variable [description]
+   * @return {[type]}          [description]
+   */
   var __checkIsValid = function(variable) {
     return typeof variable == "function" || variable == undefined
       ? true
       : false;
-  };
+  }; // ! __checkIsValid()
 
   /**
-     * [ check contain object in array ]
-     * @param  {[ Array ]} array
-     * @param  {[ Any ]} object
-     * @return {[ Bool ]}
-     * Ref: http://stackoverflow.com/a/237176/2704539
-     * @exp __contains(array, 7)
-     */
+   * [ check contain object in array ]
+   * @param  {[ Array ]} array
+   * @param  {[ Any ]} object
+   * @return {[ Bool ]}
+   * Ref: http://stackoverflow.com/a/237176/2704539
+   * @exp __contains(array, 7)
+   */
   var __contains = function(array, object) {
     var i = array.length;
 
@@ -55,10 +55,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __contains()
 
   /**
-     * [ Replace a strings to individual numbers in array ]
-     * @param  {[ Array ]} arr
-     * @return {[ Array ]}
-     */
+   * [ Replace a strings to individual numbers in array ]
+   * @param  {[ Array ]} arr
+   * @return {[ Array ]}
+   */
   var __dayOfTheWeekStringToNumber = function(arr) {
     return arr
       .map(function(res) {
@@ -88,10 +88,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dayOfTheWeekStringToNumber()
 
   /**
-     * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
-     * @return {[String]}   [description]
-     * Ref: http://stackoverflow.com/a/26078713/2704539
-     */
+   * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
+   * @return {[String]}   [description]
+   * Ref: http://stackoverflow.com/a/26078713/2704539
+   */
   var __timeObject = function(d) {
     var parts = d.split(/:|\s/), date = new Date();
 
@@ -103,11 +103,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __timeObject()
 
   /**
-     * @param  {[ Integer ]} start
-     * @param  {[ Integer ]} count
-     * @return {[ Array ]}
-     * Ref: http://stackoverflow.com/a/3746752/2704539
-     */
+   * @param  {[ Integer ]} start
+   * @param  {[ Integer ]} count
+   * @return {[ Array ]}
+   * Ref: http://stackoverflow.com/a/3746752/2704539
+   */
   var __range = function(start, count) {
     if (arguments.length == 1) {
       count = start;
@@ -124,11 +124,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __range()
 
   /**
-     * @param  {[ Date ]} from
-     * @param  {[ Date ]} to
-     * @param  {[ Date ]} current
-     * @return {[ Bool ]}
-     */
+   * @param  {[ Date ]} from
+   * @param  {[ Date ]} to
+   * @param  {[ Date ]} current
+   * @return {[ Bool ]}
+   */
   var __dateCompare = function(from, to, current) {
     return current < to.setDate(to.getDate() + 1) && current > from
       ? true
@@ -153,9 +153,9 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dateString()
 
   /**
-   ** @param {[ String ]} type
-    * @return {[Integer || bool]}
-    */
+   * @param {[ String ]} type
+   * @return {[Integer || bool]}
+   */
   var __typeToMilliseconds = function(type) {
     var response;
 
@@ -200,9 +200,8 @@ SelfTimer.prototype.helpers = function() {
     return arr.map(function(val) {
       return val.toLowerCase();
     });
-  };
+  }; // ! __arrayToLower()
 
-  // Register methods
   var REGISTER = {
     __checkIsValid: __checkIsValid,
     __contains: __contains,
@@ -242,7 +241,7 @@ SelfTimer.prototype.messages = function(val) {
     notExist: "Error: " + val + " not exist",
     shouldBeFunction: "Error: " + val + " is shold be function",
     onlyBrowser: "Error: " + val + " is just supported web-browser"
-  };
+  }; // ! return
 }; // ! SelfTimer.prototype.messages
 
 SelfTimer.prototype.formats = function() {
@@ -260,7 +259,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.1",
+    version: "1.4.3",
     method: {
       on: [
         "Sunday",
@@ -290,7 +289,7 @@ SelfTimer.prototype.info = function() {
         "LangExcepts"
       ],
       timer: ["After"]
-    }
+    } // ! method
   }; // ! return
 }; // ! SelfTimer.prototype.info
 
@@ -304,14 +303,14 @@ SelfTimer.prototype.on = function(condition) {
   // Private Variables
   var _current = this.D;
   var _day = this.D.getDay();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
-     * [ Sunday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Sunday description ]
+   * @return {[ Resolve ]}
+   */
   var Sunday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 0
@@ -321,9 +320,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Sunday()
 
   /**
-     * [ Monday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Monday description ]
+   * @return {[ Resolve ]}
+   */
   var Monday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 1
@@ -333,9 +332,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Monday()
 
   /**
-     * [ Tuesday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Tuesday description ]
+   * @return {[ Resolve ]}
+   */
   var Tuesday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 2
@@ -345,9 +344,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Tuesday()
 
   /**
-     * [Wednesday description]
-     * @return {[ Resolve ]}
-     */
+   * [Wednesday description]
+   * @return {[ Resolve ]}
+   */
   var Wednesday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 3
@@ -357,9 +356,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Wednesday()
 
   /**
-     * [ Thursday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Thursday description ]
+   * @return {[ Resolve ]}
+   */
   var Thursday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 4
@@ -369,9 +368,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Thursday()
 
   /**
-     * [ Friday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Friday description ]
+   * @return {[ Resolve ]}
+   */
   var Friday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 5
@@ -381,9 +380,9 @@ SelfTimer.prototype.on = function(condition) {
   }; //! Friday()
 
   /**
-     * [ Saturday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Saturday description ]
+   * @return {[ Resolve ]}
+   */
   var Saturday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 6
@@ -393,74 +392,74 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Saturday()
 
   /**
-     * @param {[ Array ]} weekOfDay
-     *                   [ Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-     * @return {[ Resolve ]}
-     */
+   * @param {[ Array ]} weekOfDay
+   *                   [ Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+   * @return {[ Resolve ]}
+   */
   var Selects = function(daysOfTheWeek) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(daysOfTheWeek)) throw _message.isNotArray;
+        if (!Array.isArray(daysOfTheWeek)) throw _msg.isNotArray;
 
         // convert Date to week-number
-        var arr = _helper.__dayOfTheWeekStringToNumber(daysOfTheWeek);
+        var arr = _h.__dayOfTheWeekStringToNumber(daysOfTheWeek);
 
-        return _helper.__contains(arr, _day)
+        return _h.__contains(arr, _day)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Selects()
 
   /**
-     * [ This method is implement on Monday to Friday ]
-     * @return {[ Resolve ]}
-     */
+   * [ This method is implement on Monday to Friday ]
+   * @return {[ Resolve ]}
+   */
   var Weekdays = function() {
     return new Promise(function(resolve, reject) {
       // Monday to Friday
       var dayOfTheWeek = [1, 2, 3, 4, 5];
 
-      return _helper.__contains(dayOfTheWeek, _day)
+      return _h.__contains(dayOfTheWeek, _day)
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     }); // ! Promise()
   }; // ! Weekdays()
 
   /**
-     * [ This method is implement on Saturday and Sunday ]
-     * @return {[ Resolve ]}
-     */
+   * [ This method is implement on Saturday and Sunday ]
+   * @return {[ Resolve ]}
+   */
   var Weekend = function() {
     return new Promise(function(resolve, reject) {
       // Sunday to Saturday
       var dayOfTheWeek = [0, 6];
 
-      return _helper.__contains(dayOfTheWeek, _day)
+      return _h.__contains(dayOfTheWeek, _day)
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     }); // ! Promise()
   }; // ! Weekend()
 
   /**
-     * @param {[ String ]} date [MM-dd]
-     * @return {[ Resolve ]}
-     */
+   * @param {[ String ]} date [MM-dd]
+   * @return {[ Resolve ]}
+   */
   var Annual = function(date) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!date.match(_format.date)) throw _message.date;
+        if (!date.match(_fmt.date)) throw _msg.date;
 
-        return date == _helper.__dateString()
+        return date == _h.__dateString()
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Annual()
 
@@ -476,17 +475,17 @@ SelfTimer.prototype.on = function(condition) {
       var end = new Date(to);
 
       try {
-        if (start > end) throw _message.dateGrater;
+        if (start > end) throw _msg.dateGrater;
 
-        if (start == end) throw _message.dateSameDay;
+        if (start == end) throw _msg.dateSameDay;
 
-        return _helper.__dateCompare(start, end, _current)
+        return _h.__dateCompare(start, end, _current)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! DatesBetween()
 
@@ -498,19 +497,18 @@ SelfTimer.prototype.on = function(condition) {
   var DatesContain = function(dates) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(dates)) throw _message.isNotArray;
+        if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        return _helper.__contains(dates, _current.toISOString().slice(0, 10))
+        return _h.__contains(dates, _current.toISOString().slice(0, 10))
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! DatesContain()
 
-  // Register methods
   var REGISTER = {
     Sunday: Sunday,
     Monday: Monday,
@@ -543,28 +541,28 @@ SelfTimer.prototype.at = function(condition) {
   var _Current = this.D;
   var _day = this.D.getDay();
   var _hour = this.D.getHours();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
-     * [ at().Between description ]
-     * @param  {[ String ]} from [ time format * hh:mm ]
-     * @param  {[ String ]} to   [ time format * hh:mm ]
-     * @return {[ Resolve }
-     */
+   * [ at().Between description ]
+   * @param  {[ String ]} from [ time format * hh:mm ]
+   * @param  {[ String ]} to   [ time format * hh:mm ]
+   * @return {[ Resolve }
+   */
   var Between = function(from, to) {
     return new Promise(function(resolve, reject) {
       try {
         // check time format for start time
-        if (!from.match(_format.time)) throw _message.time + "at start";
+        if (!from.match(_fmt.time)) throw _msg.time + "at start";
 
         // check time format for end time
-        if (!to.match(_format.time)) throw _message.time + " at end";
+        if (!to.match(_fmt.time)) throw _msg.time + " at end";
 
         // check if current time is available
-        var available = _Current < _helper.__timeObject(to) &&
-          _Current > _helper.__timeObject(from)
+        var available = _Current < _h.__timeObject(to) &&
+          _Current > _h.__timeObject(from)
           ? true
           : false;
 
@@ -574,28 +572,28 @@ SelfTimer.prototype.at = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Between()
 
   /**
-     * [ at().Unless description]
-     * @param {[ String ]} from [ time format * hh:mm ]
-     * @param {[ String ]} to [ time format * hh:mm ]
-     * @return {[ Resolve ]}
-     */
+   * [ at().Unless description]
+   * @param {[ String ]} from [ time format * hh:mm ]
+   * @param {[ String ]} to [ time format * hh:mm ]
+   * @return {[ Resolve ]}
+   */
   var Unless = function(from, to) {
     return new Promise(function(resolve, reject) {
       try {
         // check time format for start time
-        if (!from.match(_format.time)) throw _message.time + "at start";
+        if (!from.match(_fmt.time)) throw _msg.time + "at start";
 
         // check time format for end time
-        if (!to.match(_format.time)) throw _message.time + " at end";
+        if (!to.match(_fmt.time)) throw _msg.time + " at end";
 
         // check if current time is available
-        var available = _Current < _helper.__timeObject(to) &&
-          _Current > _helper.__timeObject(from)
+        var available = _Current < _h.__timeObject(to) &&
+          _Current > _h.__timeObject(from)
           ? true
           : false;
 
@@ -605,21 +603,21 @@ SelfTimer.prototype.at = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Unless()
 
   /**
-     * [ at().Hour description]
-     * @param  {[ Integer ]} hour [ 0 - 23 ]
-     * @return {[ Resolve ]}
-     */
+   * [ at().Hour description]
+   * @param  {[ Integer ]} hour [ 0 - 23 ]
+   * @return {[ Resolve ]}
+   */
   var Hour = function(hour) {
     return new Promise(function(resolve, reject) {
       var time = parseInt(hour);
 
       try {
-        if (time > 23) throw _message.startHour;
+        if (time > 23) throw _msg.startHour;
 
         return time === _hour
           ? resolve(true)
@@ -627,51 +625,50 @@ SelfTimer.prototype.at = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Hour()
 
   /**
-     * PASS!
-     * [ at().HoursBetween description ]
-     * @param  {[ Integer ]} from [ Start hour 0-23 ]
-     * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
-     * @return {[ Resolve ]}
-     */
+   * [ at().HoursBetween description ]
+   * @param  {[ Integer ]} from [ Start hour 0-23 ]
+   * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
+   * @return {[ Resolve ]}
+   */
   var HoursBetween = function(from, to) {
     return new Promise(function(resolve, reject) {
       var start = parseInt(from);
       var end = parseInt(to);
 
       try {
-        if (start > 23) throw _message.startHour;
+        if (start > 23) throw _msg.startHour;
 
-        if (end > 23) throw _message.endHour;
+        if (end > 23) throw _msg.endHour;
 
-        var arr = _helper.__range(end, end - start);
+        var arr = _h.__range(end, end - start);
         arr.push(from);
 
-        return _helper.__contains(arr, _hour)
+        return _h.__contains(arr, _hour)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! HoursBetween()
 
   /**
-    * [ at().HourSelects ]
-    * @param  {[ Array ]} hours [ 0-23 ]
-    * @return {[ Resolve ]}
-    */
+   * [ at().HourSelects ]
+   * @param  {[ Array ]} hours [ 0-23 ]
+   * @return {[ Resolve ]}
+   */
   var HourSelects = function(hours, task) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(hours)) throw _message.isNotArray;
+        if (!Array.isArray(hours)) throw _msg.isNotArray;
         // check array elements if numberic
-        if (!hours.some(isNaN) != true) throw _message.hourFormat;
+        if (!hours.some(isNaN) != true) throw _msg.hourFormat;
 
         var array = hours.map(function(res) {
           // convert elemetnts to Integer in array
@@ -680,27 +677,26 @@ SelfTimer.prototype.at = function(condition) {
 
         array.map(function(res) {
           // check elements if valid hour format
-          if (res > 23) throw _message.isNotValidHour;
+          if (res > 23) throw _msg.isNotValidHour;
         });
 
-        return _helper.__contains(array, _hour)
+        return _h.__contains(array, _hour)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! HourSelects()
 
-  // Register methods
   var REGISTER = {
     Between: Between,
     Unless: Unless,
     Hour: Hour,
     HoursBetween: HoursBetween,
     HourSelects: HourSelects
-  };
+  }; // ! REGISTER
 
   return REGISTER;
 };
@@ -712,9 +708,9 @@ SelfTimer.prototype.in = function(condition) {
   var _Condition = condition;
 
   // private variables
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   var _current = this.D;
   var _date = this.D.getDate();
@@ -722,13 +718,13 @@ SelfTimer.prototype.in = function(condition) {
   var _year = this.D.getFullYear();
 
   /**
-     * @param {[ Integer ]} day [* less than 31]
-     * @return {[ Resolve ]}
-     */
+   * @param {[ Integer ]} day [* less than 31]
+   * @return {[ Resolve ]}
+   */
   var Day = function(day) {
     return new Promise(function(resolve, reject) {
       try {
-        if (parseInt(day) > 31) throw __message.day;
+        if (parseInt(day) > 31) throw __msg.day;
 
         var num = day < 10 ? "0" + day : day;
 
@@ -738,71 +734,71 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Day()
 
   /**
-     * [ in().Days description ]
-     * @param  {[ Array ]} days [description]
-     * @return {[ Resolve ]}      [description]
-     */
+   * [ in().Days description ]
+   * @param  {[ Array ]} days [description]
+   * @return {[ Resolve ]}      [description]
+   */
   var Days = function(days) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(days)) throw _message.isNotArray;
+        if (!Array.isArray(days)) throw _msg.isNotArray;
 
         var array = days.map(function(res) {
           // convert elemetnts to Integer in array
           return parseInt(res);
         });
 
-        return _helper.__contains(array, _date)
+        return _h.__contains(array, _date)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Days()
 
   /**
-     * @param  {[ Integer ]} from
-     * @param  {[ Integer ]} to
-     * @return {[ Resolve ]}
-     */
+   * @param  {[ Integer ]} from
+   * @param  {[ Integer ]} to
+   * @return {[ Resolve ]}
+   */
   var DaysBetween = function(from, to) {
     return new Promise(function(resolve, reject) {
       try {
         var start = parseInt(from);
         var end = parseInt(to);
 
-        if (start > 30) throw _message.startDay;
+        if (start > 30) throw _msg.startDay;
 
-        if (end > 31) throw _message.endDay;
+        if (end > 31) throw _msg.endDay;
 
-        var arr = _helper.__range(end, end - start);
+        var arr = _h.__range(end, end - start);
         arr.push(from);
 
-        return _helper.__contains(arr, _date)
+        return _h.__contains(arr, _date)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! DaysBetween()
 
   /**
-     * @param {[ Integer ]} month
-     * @return {[ Resolve ]}
-     */
+   * @param {[ Integer ]} month
+   * @return {[ Resolve ]}
+   */
   var Month = function(month) {
     return new Promise(function(resolve, reject) {
       try {
-        if (parseInt(month) > 12) throw _message.month;
+        if (parseInt(month) > 12) throw _msg.month;
 
         var num = month < 10 ? "0" + month : month;
 
@@ -812,38 +808,38 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Month()
 
   /**
-     * [MonthSelects description]
-     * @param  {[ Integer ]} months
-     * @return {[ Resolve ]}
-     */
+   * [MonthSelects description]
+   * @param  {[ Integer ]} months
+   * @return {[ Resolve ]}
+   */
   var MonthSelects = function(months) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(months)) throw _message.isNotArray;
+        if (!Array.isArray(months)) throw _msg.isNotArray;
 
-        return _helper.__contains(months, _month)
+        return _h.__contains(months, _month)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! MonthSelects
 
   /**
-     * @param {[ Integer ]} year
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} year
+   * @return {[ Function ]}
+   */
   var Year = function(year) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!year.toString().match(_format.year)) throw _message.year;
+        if (!year.toString().match(_fmt.year)) throw _msg.year;
 
         return year == _year
           ? resolve(true)
@@ -851,11 +847,10 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Year()
 
-  // register methods
   var REGISTER = {
     Day: Day,
     Days: Days,
@@ -863,10 +858,10 @@ SelfTimer.prototype.in = function(condition) {
     Month: Month,
     MonthSelects: MonthSelects,
     Year: Year
-  };
+  }; // ! REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.in()
 
 /**
  * Promise
@@ -876,15 +871,15 @@ SelfTimer.prototype.is = function(condition) {
   var _Condition = condition;
 
   // private variables
-  var _helper = this.helpers();
-  var _message = this.messages();
+  var _h = this.helpers();
+  var _msg = this.messages();
 
   /**
-     * [ if status is true, return callback ]
-     * @param {[ Bool ]} status
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     */
+   * [ if status is true, return callback ]
+   * @param {[ Bool ]} status
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   */
   var True = function(status) {
     return new Promise(function(resolve, reject) {
       return status
@@ -894,12 +889,11 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! True()
 
   /**
-     * - browser only! -
-     * [ if status is false, return callback ]
-     * @param {[ Bool ]} status
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     */
+   * [ if status is false, return callback ]
+   * @param {[ Bool ]} status
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   */
   var False = function(status) {
     return new Promise(function(resolve, reject) {
       return status
@@ -909,19 +903,19 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! False()
 
   /**
-     * - browser only! -
-     * [ if mutch browser language value, return callback ]
-     * @param {[ String ]} lang
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
-     */
+   * - browser only! -
+   * [ if mutch browser language value, return callback ]
+   * @param {[ String ]} lang
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
+   */
   var Language = function(lang) {
     return new Promise(function(resolve, reject) {
       try {
         if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-        return lang.toLowerCase() == _helper.__detectLang()
+        return lang.toLowerCase() == _h.__detectLang()
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -932,17 +926,17 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! Language()
 
   /**
-    * [ if match browser language value, return callback, but this one enable short value ]
-    * @param {[ String ]} lang
-    * @param {[ Bool ]} condition
-    * @return {[ Function ]}
-     */
+   * [ if match browser language value, return callback, but this one enable short value ]
+   * @param {[ String ]} lang
+   * @param {[ Bool ]} condition
+   * @return {[ Function ]}
+   */
   var Lang = function(lang) {
     return new Promise(function(resolve, reject) {
       try {
         if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-        var detect = _helper.__detectLang();
+        var detect = _h.__detectLang();
 
         return lang.toLowerCase() == detect.slice(0, 2)
           ? resolve(true)
@@ -965,12 +959,9 @@ SelfTimer.prototype.is = function(condition) {
         if (window === "undefined")
           throw this.messages("LanguageSelects").onlyBrowser;
 
-        if (!Array.isArray(languages)) throw _message.isNotArray;
+        if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-        return _helper.__contains(
-          _helper.__arrayToLower(languages),
-          _helper.__detectLang()
-        )
+        return _h.__contains(_h.__arrayToLower(languages), _h.__detectLang())
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -990,14 +981,11 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LangSelects").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      return _helper.__contains(
-        _helper.__arrayToLower(lang),
-        detect.slice(0, 2)
-      )
+      return _h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2))
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -1016,12 +1004,9 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LanguageExcepts").onlyBrowser;
 
-      if (!Array.isArray(languages)) throw _message.isNotArray;
+      if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-      return !_helper.__contains(
-        _helper.__arrayToLower(languages),
-        _helper.__detectLang()
-      )
+      return !_h.__contains(_h.__arrayToLower(languages), _h.__detectLang())
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -1040,14 +1025,11 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LangExcepts").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      return !_helper.__contains(
-        _helper.__arrayToLower(lang),
-        detect.slice(0, 2)
-      )
+      return !_h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2))
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -1056,7 +1038,6 @@ SelfTimer.prototype.is = function(condition) {
     } // ! Exception
   }; // ! LangExcepts()
 
-  // register methods
   var REGISTER = {
     True: True,
     False: False,
@@ -1077,8 +1058,8 @@ SelfTimer.prototype.is = function(condition) {
  * @return {[ Methods ]}
  */
 SelfTimer.prototype.timer = function() {
-  var _message = this.messages();
-  var _helper = this.helpers();
+  var _msg = this.messages();
+  var _h = this.helpers();
 
   /**
    * [ timer().After ]
@@ -1088,19 +1069,19 @@ SelfTimer.prototype.timer = function() {
    */
   var After = function(type, num, task) {
     return new Promise(function(resolve) {
-      var milliseconds = _helper.__typeToMilliseconds(type);
+      var milliseconds = _h.__typeToMilliseconds(type);
 
       var taskType = typeof task;
 
       try {
         // checking type : second, minute .. and so
-        if (!milliseconds) throw _message.timeFormat;
+        if (!milliseconds) throw _msg.timeFormat;
 
         // check num
-        if (isNaN(num)) throw _message.numFormat;
-        if (num === 0 || num === "0") throw _message.numFormat;
+        if (isNaN(num)) throw _msg.numFormat;
+        if (num === 0 || num === "0") throw _msg.numFormat;
 
-        if (!_helper.__contains(["object", "function", "undefined"], taskType))
+        if (!_h.__contains(["object", "function", "undefined"], taskType))
           throw this.messages("type").taskFormat;
 
         if (taskType === "object") {
@@ -1145,19 +1126,19 @@ SelfTimer.prototype.timer = function() {
    */
   // var Every = function(type, num) {
   //   return new Promise(function(resolve) {
-  //     var milliseconds = _helper.__typeToMilliseconds(type);
+  //     var milliseconds = _h.__typeToMilliseconds(type);
   //
   //     var taskType = typeof task;
   //
   //     try {
   //       // checking type : second, minute .. and so
-  //       if (!milliseconds) throw _message.timeFormat;
+  //       if (!milliseconds) throw _msg.timeFormat;
   //
   //       // check num
-  //       if (isNaN(num)) throw _message.numFormat;
-  //       if (num === 0 || num === "0") throw _message.numFormat;
+  //       if (isNaN(num)) throw _msg.numFormat;
+  //       if (num === 0 || num === "0") throw _msg.numFormat;
   //
-  //       if (!_helper.__contains(["object", "function", "undefined"], taskType))
+  //       if (!_h.__contains(["object", "function", "undefined"], taskType))
   //         throw this.messages("type").taskFormat;
   //
   //       if (taskType === "object") {
@@ -1194,14 +1175,13 @@ SelfTimer.prototype.timer = function() {
   //   });
   // }; // ! Every()
 
-  // register methods
   var REGISTER = {
     After: After
     // Every: Every
-  };
+  }; // REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.timer
 
 return SelfTimer;
 }));

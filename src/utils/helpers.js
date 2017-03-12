@@ -7,24 +7,24 @@ SelfTimer.prototype.helpers = function() {
   var _day = this.D.getDay();
 
   /**
-     * [__checkIsValid description]
-     * @param  {[type]} variable [description]
-     * @return {[type]}          [description]
-     */
+   * [__checkIsValid description]
+   * @param  {[type]} variable [description]
+   * @return {[type]}          [description]
+   */
   var __checkIsValid = function(variable) {
     return typeof variable == "function" || variable == undefined
       ? true
       : false;
-  };
+  }; // ! __checkIsValid()
 
   /**
-     * [ check contain object in array ]
-     * @param  {[ Array ]} array
-     * @param  {[ Any ]} object
-     * @return {[ Bool ]}
-     * Ref: http://stackoverflow.com/a/237176/2704539
-     * @exp __contains(array, 7)
-     */
+   * [ check contain object in array ]
+   * @param  {[ Array ]} array
+   * @param  {[ Any ]} object
+   * @return {[ Bool ]}
+   * Ref: http://stackoverflow.com/a/237176/2704539
+   * @exp __contains(array, 7)
+   */
   var __contains = function(array, object) {
     var i = array.length;
 
@@ -36,10 +36,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __contains()
 
   /**
-     * [ Replace a strings to individual numbers in array ]
-     * @param  {[ Array ]} arr
-     * @return {[ Array ]}
-     */
+   * [ Replace a strings to individual numbers in array ]
+   * @param  {[ Array ]} arr
+   * @return {[ Array ]}
+   */
   var __dayOfTheWeekStringToNumber = function(arr) {
     return arr
       .map(function(res) {
@@ -69,10 +69,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dayOfTheWeekStringToNumber()
 
   /**
-     * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
-     * @return {[String]}   [description]
-     * Ref: http://stackoverflow.com/a/26078713/2704539
-     */
+   * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
+   * @return {[String]}   [description]
+   * Ref: http://stackoverflow.com/a/26078713/2704539
+   */
   var __timeObject = function(d) {
     var parts = d.split(/:|\s/), date = new Date();
 
@@ -84,11 +84,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __timeObject()
 
   /**
-     * @param  {[ Integer ]} start
-     * @param  {[ Integer ]} count
-     * @return {[ Array ]}
-     * Ref: http://stackoverflow.com/a/3746752/2704539
-     */
+   * @param  {[ Integer ]} start
+   * @param  {[ Integer ]} count
+   * @return {[ Array ]}
+   * Ref: http://stackoverflow.com/a/3746752/2704539
+   */
   var __range = function(start, count) {
     if (arguments.length == 1) {
       count = start;
@@ -105,11 +105,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __range()
 
   /**
-     * @param  {[ Date ]} from
-     * @param  {[ Date ]} to
-     * @param  {[ Date ]} current
-     * @return {[ Bool ]}
-     */
+   * @param  {[ Date ]} from
+   * @param  {[ Date ]} to
+   * @param  {[ Date ]} current
+   * @return {[ Bool ]}
+   */
   var __dateCompare = function(from, to, current) {
     return current < to.setDate(to.getDate() + 1) && current > from
       ? true
@@ -134,9 +134,9 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dateString()
 
   /**
-   ** @param {[ String ]} type
-    * @return {[Integer || bool]}
-    */
+   * @param {[ String ]} type
+   * @return {[Integer || bool]}
+   */
   var __typeToMilliseconds = function(type) {
     var response;
 
@@ -181,9 +181,8 @@ SelfTimer.prototype.helpers = function() {
     return arr.map(function(val) {
       return val.toLowerCase();
     });
-  };
+  }; // ! __arrayToLower()
 
-  // Register methods
   var REGISTER = {
     __checkIsValid: __checkIsValid,
     __contains: __contains,

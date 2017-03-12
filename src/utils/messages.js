@@ -21,5 +21,5 @@ SelfTimer.prototype.messages = function(val) {
     notExist: "Error: " + val + " not exist",
     shouldBeFunction: "Error: " + val + " is shold be function",
     onlyBrowser: "Error: " + val + " is just supported web-browser"
-  };
+  }; // ! return
 }; // ! SelfTimer.prototype.messages

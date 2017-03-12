@@ -6,15 +6,15 @@ SelfTimer.prototype.is = function(condition) {
   var _Condition = condition;
 
   // private variables
-  var _helper = this.helpers();
-  var _message = this.messages();
+  var _h = this.helpers();
+  var _msg = this.messages();
 
   /**
-     * [ if status is true, return callback ]
-     * @param {[ Bool ]} status
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     */
+   * [ if status is true, return callback ]
+   * @param {[ Bool ]} status
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   */
   var True = function(status) {
     return new Promise(function(resolve, reject) {
       return status
@@ -24,12 +24,11 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! True()
 
   /**
-     * - browser only! -
-     * [ if status is false, return callback ]
-     * @param {[ Bool ]} status
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     */
+   * [ if status is false, return callback ]
+   * @param {[ Bool ]} status
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   */
   var False = function(status) {
     return new Promise(function(resolve, reject) {
       return status
@@ -39,19 +38,19 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! False()
 
   /**
-     * - browser only! -
-     * [ if mutch browser language value, return callback ]
-     * @param {[ String ]} lang
-     * @param {[ Bool ]} condition
-     * @return {[ Resolve ]}
-     * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
-     */
+   * - browser only! -
+   * [ if mutch browser language value, return callback ]
+   * @param {[ String ]} lang
+   * @param {[ Bool ]} condition
+   * @return {[ Resolve ]}
+   * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
+   */
   var Language = function(lang) {
     return new Promise(function(resolve, reject) {
       try {
         if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-        return lang.toLowerCase() == _helper.__detectLang()
+        return lang.toLowerCase() == _h.__detectLang()
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -62,17 +61,17 @@ SelfTimer.prototype.is = function(condition) {
   }; // ! Language()
 
   /**
-    * [ if match browser language value, return callback, but this one enable short value ]
-    * @param {[ String ]} lang
-    * @param {[ Bool ]} condition
-    * @return {[ Function ]}
-     */
+   * [ if match browser language value, return callback, but this one enable short value ]
+   * @param {[ String ]} lang
+   * @param {[ Bool ]} condition
+   * @return {[ Function ]}
+   */
   var Lang = function(lang) {
     return new Promise(function(resolve, reject) {
       try {
         if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-        var detect = _helper.__detectLang();
+        var detect = _h.__detectLang();
 
         return lang.toLowerCase() == detect.slice(0, 2)
           ? resolve(true)
@@ -95,12 +94,9 @@ SelfTimer.prototype.is = function(condition) {
         if (window === "undefined")
           throw this.messages("LanguageSelects").onlyBrowser;
 
-        if (!Array.isArray(languages)) throw _message.isNotArray;
+        if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-        return _helper.__contains(
-          _helper.__arrayToLower(languages),
-          _helper.__detectLang()
-        )
+        return _h.__contains(_h.__arrayToLower(languages), _h.__detectLang())
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
@@ -120,14 +116,11 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LangSelects").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      return _helper.__contains(
-        _helper.__arrayToLower(lang),
-        detect.slice(0, 2)
-      )
+      return _h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2))
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -146,12 +139,9 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LanguageExcepts").onlyBrowser;
 
-      if (!Array.isArray(languages)) throw _message.isNotArray;
+      if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-      return !_helper.__contains(
-        _helper.__arrayToLower(languages),
-        _helper.__detectLang()
-      )
+      return !_h.__contains(_h.__arrayToLower(languages), _h.__detectLang())
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -170,14 +160,11 @@ SelfTimer.prototype.is = function(condition) {
       if (window === "undefined")
         throw this.messages("LangExcepts").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      return !_helper.__contains(
-        _helper.__arrayToLower(lang),
-        detect.slice(0, 2)
-      )
+      return !_h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2))
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     } catch (e) {
@@ -186,7 +173,6 @@ SelfTimer.prototype.is = function(condition) {
     } // ! Exception
   }; // ! LangExcepts()
 
-  // register methods
   var REGISTER = {
     True: True,
     False: False,

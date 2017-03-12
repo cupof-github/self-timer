@@ -4,30 +4,30 @@
  * @return {[ Methods ]}
  */
 SelfTimer.prototype.timer = function() {
-  var _message = this.messages();
-  var _helper = this.helpers();
+  var _msg = this.messages();
+  var _h = this.helpers();
 
   /**
-    * [ timer().After ]
-    * @param {[ String ]} type [min, sec ...]
-    * @param {[ Integer || String of Number ]} num
-    * @param {[ Function ]} task
-    * @return {[ Function ]}
-    */
+   * [ timer().After ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var After = function(type, num, task) {
-    var milliseconds = _helper.__typeToMilliseconds(type);
+    var milliseconds = _h.__typeToMilliseconds(type);
 
     var taskType = typeof task;
 
     try {
       // checking type : second, minute .. and so
-      if (!milliseconds) throw _message.timeFormat;
+      if (!milliseconds) throw _msg.timeFormat;
 
       // check num
-      if (isNaN(num)) throw _message.numFormat;
-      if (num === 0 || num === "0") throw _message.numFormat;
+      if (isNaN(num)) throw _msg.numFormat;
+      if (num === 0 || num === "0") throw _msg.numFormat;
 
-      if (!_helper.__contains(["object", "function"], taskType))
+      if (!_h.__contains(["object", "function"], taskType))
         throw this.messages("type").taskFormat;
 
       if (taskType === "object") {
@@ -68,26 +68,26 @@ SelfTimer.prototype.timer = function() {
   }; // ! After()
 
   /**
-    * [ timer().Every ]
-    * @param {[ String ]} type [min, sec ...]
-    * @param {[ Integer || String of Number ]} num
-    * @param {[ Function ]} task
-    * @return {[ Function ]}
-    */
+   * [ timer().Every ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Every = function(type, num, task) {
-    var milliseconds = _helper.__typeToMilliseconds(type);
+    var milliseconds = _h.__typeToMilliseconds(type);
 
     var taskType = typeof task;
 
     try {
       // checking type : second, minute .. and so
-      if (!milliseconds) throw _message.timeFormat;
+      if (!milliseconds) throw _msg.timeFormat;
 
       // check num
-      if (isNaN(num)) throw _message.numFormat;
-      if (num === 0 || num === "0") throw _message.numFormat;
+      if (isNaN(num)) throw _msg.numFormat;
+      if (num === 0 || num === "0") throw _msg.numFormat;
 
-      if (!_helper.__contains(["object", "function"], taskType))
+      if (!_h.__contains(["object", "function"], taskType))
         throw this.messages("type").taskFormat;
 
       if (taskType === "object") {
@@ -127,11 +127,10 @@ SelfTimer.prototype.timer = function() {
     } // ! Exception
   }; // ! Every()
 
-  // register methods
   var REGISTER = {
     After: After,
     Every: Every
-  };
+  }; // REGISTER
 
   return REGISTER;
 }; // ! SelfTimer.prototype.timer

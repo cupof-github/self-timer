@@ -8,14 +8,14 @@ SelfTimer.prototype.on = function(condition) {
   // Private Variables
   var _current = this.D;
   var _day = this.D.getDay();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
-     * [ Sunday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Sunday description ]
+   * @return {[ Resolve ]}
+   */
   var Sunday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 0
@@ -25,9 +25,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Sunday()
 
   /**
-     * [ Monday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Monday description ]
+   * @return {[ Resolve ]}
+   */
   var Monday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 1
@@ -37,9 +37,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Monday()
 
   /**
-     * [ Tuesday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Tuesday description ]
+   * @return {[ Resolve ]}
+   */
   var Tuesday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 2
@@ -49,9 +49,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Tuesday()
 
   /**
-     * [Wednesday description]
-     * @return {[ Resolve ]}
-     */
+   * [Wednesday description]
+   * @return {[ Resolve ]}
+   */
   var Wednesday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 3
@@ -61,9 +61,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Wednesday()
 
   /**
-     * [ Thursday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Thursday description ]
+   * @return {[ Resolve ]}
+   */
   var Thursday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 4
@@ -73,9 +73,9 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Thursday()
 
   /**
-     * [ Friday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Friday description ]
+   * @return {[ Resolve ]}
+   */
   var Friday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 5
@@ -85,9 +85,9 @@ SelfTimer.prototype.on = function(condition) {
   }; //! Friday()
 
   /**
-     * [ Saturday description ]
-     * @return {[ Resolve ]}
-     */
+   * [ Saturday description ]
+   * @return {[ Resolve ]}
+   */
   var Saturday = function() {
     return new Promise(function(resolve, reject) {
       return _day === 6
@@ -97,74 +97,74 @@ SelfTimer.prototype.on = function(condition) {
   }; // ! Saturday()
 
   /**
-     * @param {[ Array ]} weekOfDay
-     *                   [ Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-     * @return {[ Resolve ]}
-     */
+   * @param {[ Array ]} weekOfDay
+   *                   [ Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+   * @return {[ Resolve ]}
+   */
   var Selects = function(daysOfTheWeek) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(daysOfTheWeek)) throw _message.isNotArray;
+        if (!Array.isArray(daysOfTheWeek)) throw _msg.isNotArray;
 
         // convert Date to week-number
-        var arr = _helper.__dayOfTheWeekStringToNumber(daysOfTheWeek);
+        var arr = _h.__dayOfTheWeekStringToNumber(daysOfTheWeek);
 
-        return _helper.__contains(arr, _day)
+        return _h.__contains(arr, _day)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Selects()
 
   /**
-     * [ This method is implement on Monday to Friday ]
-     * @return {[ Resolve ]}
-     */
+   * [ This method is implement on Monday to Friday ]
+   * @return {[ Resolve ]}
+   */
   var Weekdays = function() {
     return new Promise(function(resolve, reject) {
       // Monday to Friday
       var dayOfTheWeek = [1, 2, 3, 4, 5];
 
-      return _helper.__contains(dayOfTheWeek, _day)
+      return _h.__contains(dayOfTheWeek, _day)
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     }); // ! Promise()
   }; // ! Weekdays()
 
   /**
-     * [ This method is implement on Saturday and Sunday ]
-     * @return {[ Resolve ]}
-     */
+   * [ This method is implement on Saturday and Sunday ]
+   * @return {[ Resolve ]}
+   */
   var Weekend = function() {
     return new Promise(function(resolve, reject) {
       // Sunday to Saturday
       var dayOfTheWeek = [0, 6];
 
-      return _helper.__contains(dayOfTheWeek, _day)
+      return _h.__contains(dayOfTheWeek, _day)
         ? resolve(true)
         : _Condition === true ? reject(false) : false;
     }); // ! Promise()
   }; // ! Weekend()
 
   /**
-     * @param {[ String ]} date [MM-dd]
-     * @return {[ Resolve ]}
-     */
+   * @param {[ String ]} date [MM-dd]
+   * @return {[ Resolve ]}
+   */
   var Annual = function(date) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!date.match(_format.date)) throw _message.date;
+        if (!date.match(_fmt.date)) throw _msg.date;
 
-        return date == _helper.__dateString()
+        return date == _h.__dateString()
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! Annual()
 
@@ -180,17 +180,17 @@ SelfTimer.prototype.on = function(condition) {
       var end = new Date(to);
 
       try {
-        if (start > end) throw _message.dateGrater;
+        if (start > end) throw _msg.dateGrater;
 
-        if (start == end) throw _message.dateSameDay;
+        if (start == end) throw _msg.dateSameDay;
 
-        return _helper.__dateCompare(start, end, _current)
+        return _h.__dateCompare(start, end, _current)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! DatesBetween()
 
@@ -202,19 +202,18 @@ SelfTimer.prototype.on = function(condition) {
   var DatesContain = function(dates) {
     return new Promise(function(resolve, reject) {
       try {
-        if (!Array.isArray(dates)) throw _message.isNotArray;
+        if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        return _helper.__contains(dates, _current.toISOString().slice(0, 10))
+        return _h.__contains(dates, _current.toISOString().slice(0, 10))
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     }); // ! Promise()
   }; // ! DatesContain()
 
-  // Register methods
   var REGISTER = {
     Sunday: Sunday,
     Monday: Monday,

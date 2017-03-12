@@ -17,24 +17,24 @@ SelfTimer.prototype.helpers = function() {
   var _day = this.D.getDay();
 
   /**
-     * [__checkIsValid description]
-     * @param  {[type]} variable [description]
-     * @return {[type]}          [description]
-     */
+   * [__checkIsValid description]
+   * @param  {[type]} variable [description]
+   * @return {[type]}          [description]
+   */
   var __checkIsValid = function(variable) {
     return typeof variable == "function" || variable == undefined
       ? true
       : false;
-  };
+  }; // ! __checkIsValid()
 
   /**
-     * [ check contain object in array ]
-     * @param  {[ Array ]} array
-     * @param  {[ Any ]} object
-     * @return {[ Bool ]}
-     * Ref: http://stackoverflow.com/a/237176/2704539
-     * @exp __contains(array, 7)
-     */
+   * [ check contain object in array ]
+   * @param  {[ Array ]} array
+   * @param  {[ Any ]} object
+   * @return {[ Bool ]}
+   * Ref: http://stackoverflow.com/a/237176/2704539
+   * @exp __contains(array, 7)
+   */
   var __contains = function(array, object) {
     var i = array.length;
 
@@ -46,10 +46,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __contains()
 
   /**
-     * [ Replace a strings to individual numbers in array ]
-     * @param  {[ Array ]} arr
-     * @return {[ Array ]}
-     */
+   * [ Replace a strings to individual numbers in array ]
+   * @param  {[ Array ]} arr
+   * @return {[ Array ]}
+   */
   var __dayOfTheWeekStringToNumber = function(arr) {
     return arr
       .map(function(res) {
@@ -79,10 +79,10 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dayOfTheWeekStringToNumber()
 
   /**
-     * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
-     * @return {[String]}   [description]
-     * Ref: http://stackoverflow.com/a/26078713/2704539
-     */
+   * @param  {[ String ]} d [ Timeformat * 8:30 AM, 5:00 pm]
+   * @return {[String]}   [description]
+   * Ref: http://stackoverflow.com/a/26078713/2704539
+   */
   var __timeObject = function(d) {
     var parts = d.split(/:|\s/), date = new Date();
 
@@ -94,11 +94,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __timeObject()
 
   /**
-     * @param  {[ Integer ]} start
-     * @param  {[ Integer ]} count
-     * @return {[ Array ]}
-     * Ref: http://stackoverflow.com/a/3746752/2704539
-     */
+   * @param  {[ Integer ]} start
+   * @param  {[ Integer ]} count
+   * @return {[ Array ]}
+   * Ref: http://stackoverflow.com/a/3746752/2704539
+   */
   var __range = function(start, count) {
     if (arguments.length == 1) {
       count = start;
@@ -115,11 +115,11 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __range()
 
   /**
-     * @param  {[ Date ]} from
-     * @param  {[ Date ]} to
-     * @param  {[ Date ]} current
-     * @return {[ Bool ]}
-     */
+   * @param  {[ Date ]} from
+   * @param  {[ Date ]} to
+   * @param  {[ Date ]} current
+   * @return {[ Bool ]}
+   */
   var __dateCompare = function(from, to, current) {
     return current < to.setDate(to.getDate() + 1) && current > from
       ? true
@@ -144,9 +144,9 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __dateString()
 
   /**
-   ** @param {[ String ]} type
-    * @return {[Integer || bool]}
-    */
+   * @param {[ String ]} type
+   * @return {[Integer || bool]}
+   */
   var __typeToMilliseconds = function(type) {
     var response;
 
@@ -191,9 +191,8 @@ SelfTimer.prototype.helpers = function() {
     return arr.map(function(val) {
       return val.toLowerCase();
     });
-  };
+  }; // ! __arrayToLower()
 
-  // Register methods
   var REGISTER = {
     __checkIsValid: __checkIsValid,
     __contains: __contains,
@@ -233,7 +232,7 @@ SelfTimer.prototype.messages = function(val) {
     notExist: "Error: " + val + " not exist",
     shouldBeFunction: "Error: " + val + " is shold be function",
     onlyBrowser: "Error: " + val + " is just supported web-browser"
-  };
+  }; // ! return
 }; // ! SelfTimer.prototype.messages
 
 SelfTimer.prototype.formats = function() {
@@ -251,7 +250,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.1",
+    version: "1.4.3",
     method: {
       on: [
         "Sunday",
@@ -281,7 +280,7 @@ SelfTimer.prototype.info = function() {
         "LangExcepts"
       ],
       timer: ["After"]
-    }
+    } // ! method
   }; // ! return
 }; // ! SelfTimer.prototype.info
 
@@ -293,18 +292,18 @@ SelfTimer.prototype.on = function() {
   // Private Variables
   var _current = this.D;
   var _day = this.D.getDay();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
    * @param {[ Function ]} task [ callback ]
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Sunday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 0) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Sunday()
 
   /**
@@ -312,9 +311,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Monday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 1) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Monday()
 
   /**
@@ -322,9 +321,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Tuesday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 2) return task != undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Tuesday()
 
   /**
@@ -332,9 +331,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]} [ Your callback ]
    */
   var Wednesday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 3) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Wednesday()
 
   /**
@@ -342,9 +341,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Thursday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 4) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Thursday()
 
   /**
@@ -352,9 +351,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Friday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 5) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Friday()
 
   /**
@@ -362,9 +361,9 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Saturday = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       if (_day === 6) return task !== undefined ? task() : true;
-    }
+    } // ! if()
   }; // ! Saturday()
 
   /**
@@ -374,20 +373,20 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Selects = function(daysOfTheWeek, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(daysOfTheWeek)) throw _message.isNotArray;
+        if (!Array.isArray(daysOfTheWeek)) throw _msg.isNotArray;
 
         // convert Date to week-number
-        var arr = _helper.__dayOfTheWeekStringToNumber(daysOfTheWeek);
+        var arr = _h.__dayOfTheWeekStringToNumber(daysOfTheWeek);
 
-        if (_helper.__contains(arr, _day)) {
+        if (_h.__contains(arr, _day)) {
           return task !== undefined ? task() : true;
         } // ! if()
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Selects()
 
@@ -397,14 +396,14 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Weekdays = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       // Monday to Friday
       var dayOfTheWeek = [1, 2, 3, 4, 5];
 
-      if (_helper.__contains(dayOfTheWeek, _day)) {
+      if (_h.__contains(dayOfTheWeek, _day)) {
         return task !== undefined ? task() : true;
-      }
-    }
+      } // ! if()
+    } // ! if()
   }; // ! Weekdays()
 
   /**
@@ -413,14 +412,14 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var Weekend = function(task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       // Sunday and Saturday
       var dayOfTheWeek = [0, 6];
 
-      if (_helper.__contains(dayOfTheWeek, _day)) {
+      if (_h.__contains(dayOfTheWeek, _day)) {
         return task !== undefined ? task() : true;
-      }
-    } // ! if
+      } // ! if()
+    } // ! if()
   }; // ! Weekend()
 
   /**
@@ -429,16 +428,16 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}
    */
   var Annual = function(date, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!date.match(_format.date)) throw _message.date;
+        if (!date.match(_fmt.date)) throw _msg.date;
 
-        if (date == _helper.__dateString())
+        if (date == _h.__dateString())
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Annual()
 
@@ -451,21 +450,21 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}      [ callback ]
    */
   var DatesBetween = function(from, to, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       var start = new Date(from);
       var end = new Date(to);
 
       try {
-        if (start > end) throw _message.dateGrater;
+        if (start > end) throw _msg.dateGrater;
 
-        if (start == end) throw _message.dateSameDay;
+        if (start == end) throw _msg.dateSameDay;
 
-        if (_helper.__dateCompare(start, end, _current))
+        if (_h.__dateCompare(start, end, _current))
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! DatesBetween()
 
@@ -476,20 +475,19 @@ SelfTimer.prototype.on = function() {
    * @return {[ Function ]}      [ callback ]
    */
   var DatesContain = function(dates, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(dates)) throw _message.isNotArray;
+        if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        if (_helper.__contains(dates, _current.toISOString().slice(0, 10)))
+        if (_h.__contains(dates, _current.toISOString().slice(0, 10)))
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! DatesContain()
 
-  // Register methods
   var REGISTER = {
     Sunday: Sunday,
     Monday: Monday,
@@ -504,7 +502,7 @@ SelfTimer.prototype.on = function() {
     Annual: Annual,
     DatesBetween: DatesBetween,
     DatesContain: DatesContain
-  };
+  }; // REGISTER
 
   return REGISTER;
 };
@@ -515,34 +513,34 @@ SelfTimer.prototype.on = function() {
  */
 SelfTimer.prototype.at = function() {
   /**
-     * private variables
-     */
+   * private variables
+   */
   var _Current = this.D;
   var _day = this.D.getDay();
   var _hour = this.D.getHours();
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   /**
-     * [ at().Between description ]
-     * @param  {[ String ]} from [ time format * hh:mm ]
-     * @param  {[ String ]} to   [ time format * hh:mm ]
-     * @param  {[ Function ]} task  [ callback ]
-     * @return {[ Function || Bool ]}  [ callback || bool ]
-     */
+   * [ at().Between description ]
+   * @param  {[ String ]} from [ time format * hh:mm ]
+   * @param  {[ String ]} to   [ time format * hh:mm ]
+   * @param  {[ Function ]} task  [ callback ]
+   * @return {[ Function || Bool ]}  [ callback || bool ]
+   */
   var Between = function(from, to, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
         // check time format for start time
-        if (!from.match(_format.time)) throw _message.time + "at start";
+        if (!from.match(_fmt.time)) throw _msg.time + "at start";
 
         // check time format for end time
-        if (!to.match(_format.time)) throw _message.time + " at end";
+        if (!to.match(_fmt.time)) throw _msg.time + " at end";
 
         // check if current time is available
-        var available = _Current < _helper.__timeObject(to) &&
-          _Current > _helper.__timeObject(from)
+        var available = _Current < _h.__timeObject(to) &&
+          _Current > _h.__timeObject(from)
           ? true
           : false;
 
@@ -550,29 +548,29 @@ SelfTimer.prototype.at = function() {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Between()
 
   /**
-     * [ at().Unless description]
-     * @param {[ String ]} from [ time format * hh:mm ]
-     * @param {[ String ]} to [ time format * hh:mm ]
-     * @param {[ Function ]} task
-     * @return {[ Function || Bool ]}  [ callback || bool ]
-     */
+   * [ at().Unless description]
+   * @param {[ String ]} from [ time format * hh:mm ]
+   * @param {[ String ]} to [ time format * hh:mm ]
+   * @param {[ Function ]} task
+   * @return {[ Function || Bool ]}  [ callback || bool ]
+   */
   var Unless = function(from, to, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
         // check time format for start time
-        if (!from.match(_format.time)) throw _message.time + "at start";
+        if (!from.match(_fmt.time)) throw _msg.time + "at start";
 
         // check time format for end time
-        if (!to.match(_format.time)) throw _message.time + " at end";
+        if (!to.match(_fmt.time)) throw _msg.time + " at end";
 
         // check if current time is available
-        var available = _Current < _helper.__timeObject(to) &&
-          _Current > _helper.__timeObject(from)
+        var available = _Current < _h.__timeObject(to) &&
+          _Current > _h.__timeObject(from)
           ? true
           : false;
 
@@ -580,60 +578,59 @@ SelfTimer.prototype.at = function() {
       } catch (e) {
         console.error(e);
         return;
-      }
-    }
+      } // ! Exception
+    } // ! if()
   }; // ! Unless()
 
   /**
-     * [ at().Hour description]
-     * @param  {[ Integer ]} hour [ 0 - 23 ]
-     * @param  {[ Function ]} task [description]
-     * @return {[ Function || Bool ]}  [ callback || bool ]
-     */
+   * [ at().Hour description]
+   * @param  {[ Integer ]} hour [ 0 - 23 ]
+   * @param  {[ Function ]} task [description]
+   * @return {[ Function || Bool ]}  [ callback || bool ]
+   */
   var Hour = function(hour, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       var time = parseInt(hour);
 
       try {
-        if (time > 23) throw _message.startHour;
+        if (time > 23) throw _msg.startHour;
 
         if (time === _hour) return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! Hour()
 
   /**
-     * PASS!
-     * [ at().HoursBetween description ]
-     * @param  {[ Integer ]} from [ Start hour 0 - 23 ]
-     * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
-     * @param {[ Function ]} task
-     * @return {[ Function || Bool ]}  [ callback || bool ]
-     */
+   * [ at().HoursBetween description ]
+   * @param  {[ Integer ]} from [ Start hour 0 - 23 ]
+   * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
+   * @param {[ Function ]} task
+   * @return {[ Function || Bool ]}  [ callback || bool ]
+   */
   var HoursBetween = function(from, to, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       var start = parseInt(from);
       var end = parseInt(to);
 
       try {
-        if (start > 23) throw _message.startHour;
+        if (start > 23) throw _msg.startHour;
 
-        if (end > 23) throw _message.endHour;
+        if (end > 23) throw _msg.endHour;
 
-        var arr = _helper.__range(end, end - start);
+        var arr = _h.__range(end, end - start);
         arr.push(from);
 
-        if (_helper.__contains(arr, _hour)) {
+        if (_h.__contains(arr, _hour)) {
           return task !== undefined ? task() : true;
         } // ! if()
       } catch (e) {
         console.error(e);
         return;
-      }
-    }
+      } // ! Exception
+    } // ! if()
   }; // ! HoursBetween()
 
   /**
@@ -643,42 +640,40 @@ SelfTimer.prototype.at = function() {
    * @return {[ Function || Bool ]}  [ callback || bool ]
    */
   var HourSelects = function(hours, task) {
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(hours)) throw _message.isNotArray;
+        if (!Array.isArray(hours)) throw _msg.isNotArray;
 
         // check array elements if numberic
-        if (!hours.some(isNaN) != true) throw _message.hourFormat;
+        if (!hours.some(isNaN) != true) throw _msg.hourFormat;
 
-        var array = hours
-          .map(function(res) {
-            // convert elemetnts to Integer in array
-            return parseInt(res);
-          });
+        var array = hours.map(function(res) {
+          // convert elemetnts to Integer in array
+          return parseInt(res);
+        });
 
-          array.map(function(res) {
-            // check elements if valid hour format
-            if (res > 23) throw _message.isNotValidHour;
-          });
+        array.map(function(res) {
+          // check elements if valid hour format
+          if (res > 23) throw _msg.isNotValidHour;
+        });
 
-        if (_helper.__contains(array, _hour)) {
+        if (_h.__contains(array, _hour)) {
           return task !== undefined ? task() : true;
         } // ! if
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
   }; // ! HourSelects()
 
-  // Register methods
   var REGISTER = {
     Between: Between,
     Unless: Unless,
     Hour: Hour,
     HoursBetween: HoursBetween,
     HourSelects: HourSelects
-  };
+  }; // ! REGISTER
 
   return REGISTER;
 };
@@ -693,9 +688,9 @@ SelfTimer.prototype.in = function(condition) {
   var _Chain = true;
 
   // private variables
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   var _current = this.D;
   var _date = this.D.getDate();
@@ -703,16 +698,16 @@ SelfTimer.prototype.in = function(condition) {
   var _year = this.D.getFullYear();
 
   /**
-     * @param {[ Integer ]} day [* less than 31]
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} day [* less than 31]
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Day = function(day, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (parseInt(day) > 31) throw __message.day;
+        if (parseInt(day) > 31) throw __msg.day;
 
         var num = day < 10 ? "0" + day : day;
 
@@ -730,24 +725,24 @@ SelfTimer.prototype.in = function(condition) {
   };
 
   /**
-     * [ in().Days description ]
-     * @param  {[ Array ]} days [description]
-     * @param  {[ Function ]} task [ callback ]
-     * @return {[ Function ]}      [description]
-     */
+   * [ in().Days description ]
+   * @param  {[ Array ]} days [description]
+   * @param  {[ Function ]} task [ callback ]
+   * @return {[ Function ]}      [description]
+   */
   var Days = function(days, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(days)) throw _message.isNotArray;
+        if (!Array.isArray(days)) throw _msg.isNotArray;
 
         var array = days.map(function(res) {
           // convert elemetnts to Integer in array
           return parseInt(res);
         });
 
-        if (_helper.__contains(array, _date)) {
+        if (_h.__contains(array, _date)) {
           return task !== undefined ? task() : _Condition == true ? this : true;
         } else {
           this._Chain = false;
@@ -761,28 +756,27 @@ SelfTimer.prototype.in = function(condition) {
   };
 
   /**
-     * PASS
-     * @param  {[ Integer ]}
-     * @param  {[ Integer ]} end
-     * @param  {[ Function ]} task  [ callback ]
-     * @return {[type]} [ Your callback ]
-     */
+   * @param  {[ Integer ]}
+   * @param  {[ Integer ]} end
+   * @param  {[ Function ]} task  [ callback ]
+   * @return {[type]} [ Your callback ]
+   */
   var DaysBetween = function(from, to, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
         var start = parseInt(from);
         var end = parseInt(to);
 
-        if (start > 30) throw _message.startDay;
+        if (start > 30) throw _msg.startDay;
 
-        if (end > 31) throw _message.endDay;
+        if (end > 31) throw _msg.endDay;
 
-        var arr = _helper.__range(end, end - start);
+        var arr = _h.__range(end, end - start);
         arr.push(from);
 
-        if (_helper.__contains(arr, _date)) {
+        if (_h.__contains(arr, _date)) {
           return task !== undefined ? task() : _Condition == true ? this : true;
         } else {
           this._Chain = false;
@@ -791,23 +785,21 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! DaysBetween()
 
   /**
-     * PASS!
-     * @param month: Integer
-     * @param task: Function
-     * @return {[ Function ]}
-     * []
-     */
+   * @param month: Integer
+   * @param task: Function
+   * @return {[ Function ]}
+   */
   var Month = function(month, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (parseInt(month) > 12) throw _message.month;
+        if (parseInt(month) > 12) throw _msg.month;
 
         var num = month < 10 ? "0" + month : month;
 
@@ -820,41 +812,41 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! Month()
 
   /**
-     * @param {[ Integer ]} month
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} month
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var MonthSelects = function(months, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
-      if (!Array.isArray(months)) throw _message.isNotArray;
+    if (_h.__checkIsValid(task)) {
+      if (!Array.isArray(months)) throw _msg.isNotArray;
 
-      if (_helper.__contains(months, _month)) {
+      if (_h.__contains(months, _month)) {
         return task !== undefined ? task() : _Condition == true ? this : true;
       } else {
         this._Chain = false;
         return _Condition == true ? this : false;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! MonthSelects
 
   /**
-     * @param {[ Integer ]} year
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} year
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Year = function(year, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!year.toString().match(_format.year)) throw _message.year;
+        if (!year.toString().match(_fmt.year)) throw _msg.year;
 
         if (year == _year) {
           return task !== undefined ? task() : _Condition == true ? this : true;
@@ -865,11 +857,10 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! Year()
 
-  // register methods
   var REGISTER = {
     Day: Day,
     Days: Days,
@@ -877,52 +868,53 @@ SelfTimer.prototype.in = function(condition) {
     Month: Month,
     MonthSelects: MonthSelects,
     Year: Year
-  };
+  }; // REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.in
 
 /**
+ * ES5
  * [isTrue description]
  * @type {Boolean}
  */
 SelfTimer.prototype.is = function() {
   // private variables
-  var _helper = this.helpers();
-  var _message = this.messages();
+  var _h = this.helpers();
+  var _msg = this.messages();
 
   /**
-     * [ if condition is true, return callback ]
-     * @param {[ Bool ]} condition
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * [ if condition is true, return callback ]
+   * @param {[ Bool ]} condition
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var True = function(condition, task) {
     if (condition) return task !== undefined ? task() : true;
   }; // ! True()
 
   /**
-     * [ if condition is false, return callback ]
-     * @param {[ Bool ]} condition
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * [ if condition is false, return callback ]
+   * @param {[ Bool ]} condition
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var False = function(condition, task) {
     if (!condition) return task !== undefined ? task() : true;
   }; // ! False()
 
   /**
-     * [ if match browser language value, return callback ]
-     * @param {[ String ]} lang
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
-     */
+   * [ if match browser language value, return callback ]
+   * @param {[ String ]} lang
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   * @coderef https://msdn.microsoft.com/en-us/library/ms533052(v=vs.85).aspx
+   */
   var Language = function(lang, task) {
     try {
       if (window === "undefined") throw this.messages("Language").onlyBrowser;
 
-      if (lang.toLowerCase() == _helper.__detectLang())
+      if (lang.toLowerCase() == _h.__detectLang())
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -931,16 +923,16 @@ SelfTimer.prototype.is = function() {
   }; // ! Language()
 
   /**
-     * [ if match browser language value, return callback, but this one enable short value ]
-     * @param {[ String ]} lang
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * [ if match browser language value, return callback, but this one enable short value ]
+   * @param {[ String ]} lang
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Lang = function(lang, task) {
     try {
       if (window === "undefined") throw this.messages("Lang").onlyBrowser;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
       if (lang.toLowerCase() == detect.slice(0, 2))
         return task !== undefined ? task() : true;
@@ -960,14 +952,9 @@ SelfTimer.prototype.is = function() {
       if (window === "undefined")
         throw this.messages("LanguageSelects").onlyBrowser;
 
-      if (!Array.isArray(languages)) throw _message.isNotArray;
+      if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-      if (
-        _helper.__contains(
-          _helper.__arrayToLower(languages),
-          _helper.__detectLang()
-        )
-      )
+      if (_h.__contains(_h.__arrayToLower(languages), _h.__detectLang()))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -985,11 +972,11 @@ SelfTimer.prototype.is = function() {
       if (window === "undefined")
         throw this.messages("LangSelects").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      if (_helper.__contains(_helper.__arrayToLower(lang), detect.slice(0, 2)))
+      if (_h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2)))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -1007,14 +994,9 @@ SelfTimer.prototype.is = function() {
       if (window === "undefined")
         throw this.messages("LanguageExcepts").onlyBrowser;
 
-      if (!Array.isArray(languages)) throw _message.isNotArray;
+      if (!Array.isArray(languages)) throw _msg.isNotArray;
 
-      if (
-        !_helper.__contains(
-          _helper.__arrayToLower(languages),
-          _helper.__detectLang()
-        )
-      )
+      if (!_h.__contains(_h.__arrayToLower(languages), _h.__detectLang()))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -1032,11 +1014,11 @@ SelfTimer.prototype.is = function() {
       if (window === "undefined")
         throw this.messages("LangExcepts").onlyBrowser;
 
-      if (!Array.isArray(lang)) throw _message.isNotArray;
+      if (!Array.isArray(lang)) throw _msg.isNotArray;
 
-      var detect = _helper.__detectLang();
+      var detect = _h.__detectLang();
 
-      if (!_helper.__contains(_helper.__arrayToLower(lang), detect.slice(0, 2)))
+      if (!_h.__contains(_h.__arrayToLower(lang), detect.slice(0, 2)))
         return task !== undefined ? task() : true;
     } catch (e) {
       console.error(e);
@@ -1044,7 +1026,6 @@ SelfTimer.prototype.is = function() {
     } // ! Exception
   }; // ! LangExcepts()
 
-  // register methods
   var REGISTER = {
     True: True,
     False: False,
@@ -1065,30 +1046,30 @@ SelfTimer.prototype.is = function() {
  * @return {[ Methods ]}
  */
 SelfTimer.prototype.timer = function() {
-  var _message = this.messages();
-  var _helper = this.helpers();
+  var _msg = this.messages();
+  var _h = this.helpers();
 
   /**
-    * [ timer().After ]
-    * @param {[ String ]} type [min, sec ...]
-    * @param {[ Integer || String of Number ]} num
-    * @param {[ Function ]} task
-    * @return {[ Function ]}
-    */
+   * [ timer().After ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var After = function(type, num, task) {
-    var milliseconds = _helper.__typeToMilliseconds(type);
+    var milliseconds = _h.__typeToMilliseconds(type);
 
     var taskType = typeof task;
 
     try {
       // checking type : second, minute .. and so
-      if (!milliseconds) throw _message.timeFormat;
+      if (!milliseconds) throw _msg.timeFormat;
 
       // check num
-      if (isNaN(num)) throw _message.numFormat;
-      if (num === 0 || num === "0") throw _message.numFormat;
+      if (isNaN(num)) throw _msg.numFormat;
+      if (num === 0 || num === "0") throw _msg.numFormat;
 
-      if (!_helper.__contains(["object", "function"], taskType))
+      if (!_h.__contains(["object", "function"], taskType))
         throw this.messages("type").taskFormat;
 
       if (taskType === "object") {
@@ -1129,26 +1110,26 @@ SelfTimer.prototype.timer = function() {
   }; // ! After()
 
   /**
-    * [ timer().Every ]
-    * @param {[ String ]} type [min, sec ...]
-    * @param {[ Integer || String of Number ]} num
-    * @param {[ Function ]} task
-    * @return {[ Function ]}
-    */
+   * [ timer().Every ]
+   * @param {[ String ]} type [min, sec ...]
+   * @param {[ Integer || String of Number ]} num
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Every = function(type, num, task) {
-    var milliseconds = _helper.__typeToMilliseconds(type);
+    var milliseconds = _h.__typeToMilliseconds(type);
 
     var taskType = typeof task;
 
     try {
       // checking type : second, minute .. and so
-      if (!milliseconds) throw _message.timeFormat;
+      if (!milliseconds) throw _msg.timeFormat;
 
       // check num
-      if (isNaN(num)) throw _message.numFormat;
-      if (num === 0 || num === "0") throw _message.numFormat;
+      if (isNaN(num)) throw _msg.numFormat;
+      if (num === 0 || num === "0") throw _msg.numFormat;
 
-      if (!_helper.__contains(["object", "function"], taskType))
+      if (!_h.__contains(["object", "function"], taskType))
         throw this.messages("type").taskFormat;
 
       if (taskType === "object") {
@@ -1188,11 +1169,10 @@ SelfTimer.prototype.timer = function() {
     } // ! Exception
   }; // ! Every()
 
-  // register methods
   var REGISTER = {
     After: After,
     Every: Every
-  };
+  }; // REGISTER
 
   return REGISTER;
 }; // ! SelfTimer.prototype.timer

@@ -8,9 +8,9 @@ SelfTimer.prototype.in = function(condition) {
   var _Chain = true;
 
   // private variables
-  var _message = this.messages();
-  var _helper = this.helpers();
-  var _format = this.formats();
+  var _msg = this.messages();
+  var _h = this.helpers();
+  var _fmt = this.formats();
 
   var _current = this.D;
   var _date = this.D.getDate();
@@ -18,16 +18,16 @@ SelfTimer.prototype.in = function(condition) {
   var _year = this.D.getFullYear();
 
   /**
-     * @param {[ Integer ]} day [* less than 31]
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} day [* less than 31]
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Day = function(day, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (parseInt(day) > 31) throw __message.day;
+        if (parseInt(day) > 31) throw __msg.day;
 
         var num = day < 10 ? "0" + day : day;
 
@@ -45,24 +45,24 @@ SelfTimer.prototype.in = function(condition) {
   };
 
   /**
-     * [ in().Days description ]
-     * @param  {[ Array ]} days [description]
-     * @param  {[ Function ]} task [ callback ]
-     * @return {[ Function ]}      [description]
-     */
+   * [ in().Days description ]
+   * @param  {[ Array ]} days [description]
+   * @param  {[ Function ]} task [ callback ]
+   * @return {[ Function ]}      [description]
+   */
   var Days = function(days, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!Array.isArray(days)) throw _message.isNotArray;
+        if (!Array.isArray(days)) throw _msg.isNotArray;
 
         var array = days.map(function(res) {
           // convert elemetnts to Integer in array
           return parseInt(res);
         });
 
-        if (_helper.__contains(array, _date)) {
+        if (_h.__contains(array, _date)) {
           return task !== undefined ? task() : _Condition == true ? this : true;
         } else {
           this._Chain = false;
@@ -76,28 +76,27 @@ SelfTimer.prototype.in = function(condition) {
   };
 
   /**
-     * PASS
-     * @param  {[ Integer ]}
-     * @param  {[ Integer ]} end
-     * @param  {[ Function ]} task  [ callback ]
-     * @return {[type]} [ Your callback ]
-     */
+   * @param  {[ Integer ]}
+   * @param  {[ Integer ]} end
+   * @param  {[ Function ]} task  [ callback ]
+   * @return {[type]} [ Your callback ]
+   */
   var DaysBetween = function(from, to, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
         var start = parseInt(from);
         var end = parseInt(to);
 
-        if (start > 30) throw _message.startDay;
+        if (start > 30) throw _msg.startDay;
 
-        if (end > 31) throw _message.endDay;
+        if (end > 31) throw _msg.endDay;
 
-        var arr = _helper.__range(end, end - start);
+        var arr = _h.__range(end, end - start);
         arr.push(from);
 
-        if (_helper.__contains(arr, _date)) {
+        if (_h.__contains(arr, _date)) {
           return task !== undefined ? task() : _Condition == true ? this : true;
         } else {
           this._Chain = false;
@@ -106,23 +105,21 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! DaysBetween()
 
   /**
-     * PASS!
-     * @param month: Integer
-     * @param task: Function
-     * @return {[ Function ]}
-     * []
-     */
+   * @param month: Integer
+   * @param task: Function
+   * @return {[ Function ]}
+   */
   var Month = function(month, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (parseInt(month) > 12) throw _message.month;
+        if (parseInt(month) > 12) throw _msg.month;
 
         var num = month < 10 ? "0" + month : month;
 
@@ -135,41 +132,41 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! Month()
 
   /**
-     * @param {[ Integer ]} month
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} month
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var MonthSelects = function(months, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
-      if (!Array.isArray(months)) throw _message.isNotArray;
+    if (_h.__checkIsValid(task)) {
+      if (!Array.isArray(months)) throw _msg.isNotArray;
 
-      if (_helper.__contains(months, _month)) {
+      if (_h.__contains(months, _month)) {
         return task !== undefined ? task() : _Condition == true ? this : true;
       } else {
         this._Chain = false;
         return _Condition == true ? this : false;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! MonthSelects
 
   /**
-     * @param {[ Integer ]} year
-     * @param {[ Function ]} task
-     * @return {[ Function ]}
-     */
+   * @param {[ Integer ]} year
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
   var Year = function(year, task) {
     if (this._Chain == false) return;
 
-    if (_helper.__checkIsValid(task)) {
+    if (_h.__checkIsValid(task)) {
       try {
-        if (!year.toString().match(_format.year)) throw _message.year;
+        if (!year.toString().match(_fmt.year)) throw _msg.year;
 
         if (year == _year) {
           return task !== undefined ? task() : _Condition == true ? this : true;
@@ -180,11 +177,10 @@ SelfTimer.prototype.in = function(condition) {
       } catch (e) {
         console.error(e);
         return;
-      }
+      } // ! Exception
     } // ! if()
-  };
+  }; // ! Year()
 
-  // register methods
   var REGISTER = {
     Day: Day,
     Days: Days,
@@ -192,7 +188,7 @@ SelfTimer.prototype.in = function(condition) {
     Month: Month,
     MonthSelects: MonthSelects,
     Year: Year
-  };
+  }; // REGISTER
 
   return REGISTER;
-};
+}; // ! SelfTimer.prototype.in
