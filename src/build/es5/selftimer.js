@@ -1135,7 +1135,7 @@ SelfTimer.prototype.timer = function() {
       if (taskType === "object") {
         // check exists keys
         if (!("before" in task)) throw this.messages("key:before").notExist;
-        if (!("before" in task)) throw this.messages("key:after").notExist;
+        if (!("after" in task)) throw this.messages("key:after").notExist;
 
         // value validation in object
         if (typeof task.before !== "function")

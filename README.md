@@ -111,6 +111,8 @@ Using CDN:
 
 - True(), False()
 - Language(), Lang()
+- LanguageSelects(), LangSelects()
+- LanguageExcepts(), LangExcepts()
 
 **.timer()**
 

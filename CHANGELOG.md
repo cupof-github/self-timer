@@ -1,5 +1,8 @@
 # self-timer.js Change log
 
+## version 1.4.4 [ 2017/03/13 ]
+fixed `timer().After` method.
+
 ## version 1.4.2 [ 2017/03/12 ]
 enhanced `is().Lang*` methods.
 

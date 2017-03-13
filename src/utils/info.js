@@ -4,7 +4,7 @@
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.3",
+    version: "1.4.4",
     method: {
       on: [
         "Sunday",
