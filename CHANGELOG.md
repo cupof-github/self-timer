@@ -1,5 +1,8 @@
 # self-timer.js Change log
 
+## version 1.4.5 [ 2017/03/15 ]
+fixed `timer().After` method at validation.
+
 ## version 1.4.4 [ 2017/03/13 ]
 fixed `timer().After` method.
 
