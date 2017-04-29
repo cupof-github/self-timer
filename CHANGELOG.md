@@ -1,5 +1,15 @@
 # self-timer.js Change log
 
+## version 1.4.6 [ 2017/04/30 ]
+cahange: no longer necessary first variable should be `new Date()`
+```javascript
+// Before
+var st = SelfTimer(new Date());
+// After
+var st = SelfTimer(); // set 'new Date()' automatically as default.
+var st = SelfTimer(new Date()); // either OK !
+```
+
 ## version 1.4.5 [ 2017/03/15 ]
 fixed `timer().After` method at validation.
 

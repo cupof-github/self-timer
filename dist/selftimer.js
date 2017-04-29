@@ -14,7 +14,15 @@
  * @param {[type]} date [description]
  */
 function SelfTimer(date) {
-  this.D = date;
+  // this.D = date;
+  if (typeof date === "undefined") {
+    this.D = new Date();
+  } else if (date instanceof Date === false) {
+    console.error("'date' must be Date type.");
+    return;
+  } else {
+    this.D = date;
+  }
 }
 
 /**
@@ -259,7 +267,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.5",
+    version: "1.4.6",
     method: {
       on: [
         "Sunday",
