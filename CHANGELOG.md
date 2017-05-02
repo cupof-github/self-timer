@@ -1,7 +1,7 @@
 # self-timer.js Change log
 
 ## version 1.4.6 [ 2017/04/30 ]
-cahange: no longer necessary first variable should be `new Date()`
+cahange: no longer necessary initial argument should be `new Date()`
 ```javascript
 // Before
 var st = SelfTimer(new Date());
