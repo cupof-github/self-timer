@@ -73,6 +73,12 @@ Using npm:
 npm install self-timer --save
 ```
 
+Using yarn:
+
+```bash
+yarn add self-timer
+```
+
 Using CDN:
 ```html
 
