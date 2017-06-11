@@ -54,6 +54,20 @@ SelfTimer.prototype.helpers = function() {
   }; // ! __contains()
 
   /**
+   * [ check string if word is included ]
+   * @param {[ String ]} word
+   * @param {[ String ]} val
+   * @return {[ Bool ]}
+   */
+  var __str_includes = function(word, val) {
+    var result = false;
+
+    if (word.indexOf(val) >= 0) result = true;
+
+    return result;
+  };
+
+  /**
    * [ Replace a strings to individual numbers in array ]
    * @param  {[ Array ]} arr
    * @return {[ Array ]}
@@ -92,7 +106,8 @@ SelfTimer.prototype.helpers = function() {
    * Ref: http://stackoverflow.com/a/26078713/2704539
    */
   var __timeObject = function(d) {
-    var parts = d.split(/:|\s/), date = new Date();
+    var parts = d.split(/:|\s/),
+      date = new Date();
 
     if (parts.pop().toLowerCase() == "pm") parts[0] = +parts[0] + 12;
 
@@ -204,6 +219,7 @@ SelfTimer.prototype.helpers = function() {
   var REGISTER = {
     __checkIsValid: __checkIsValid,
     __contains: __contains,
+    __str_includes: __str_includes,
     __dayOfTheWeekStringToNumber: __dayOfTheWeekStringToNumber,
     __timeObject: __timeObject,
     __range: __range,
@@ -258,7 +274,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.4.6",
+    version: "1.5.0",
     method: {
       on: [
         "Sunday",
@@ -285,7 +301,8 @@ SelfTimer.prototype.info = function() {
         "LanguageSelects",
         "LangSelects",
         "LanguageExcepts",
-        "LangExcepts"
+        "LangExcepts",
+        "Mobile"
       ],
       timer: ["After"]
     } // ! method
@@ -920,7 +937,8 @@ SelfTimer.prototype.is = function() {
    */
   var Language = function(lang, task) {
     try {
-      if (window === "undefined") throw this.messages("Language").onlyBrowser;
+      if (typeof window === "undefined")
+        throw this.messages("Language").onlyBrowser;
 
       if (lang.toLowerCase() == _h.__detectLang())
         return task !== undefined ? task() : true;
@@ -938,7 +956,8 @@ SelfTimer.prototype.is = function() {
    */
   var Lang = function(lang, task) {
     try {
-      if (window === "undefined") throw this.messages("Lang").onlyBrowser;
+      if (typeof window === "undefined")
+        throw this.messages("Lang").onlyBrowser;
 
       var detect = _h.__detectLang();
 
@@ -957,7 +976,7 @@ SelfTimer.prototype.is = function() {
    */
   var LanguageSelects = function(languages, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LanguageSelects").onlyBrowser;
 
       if (!Array.isArray(languages)) throw _msg.isNotArray;
@@ -977,7 +996,7 @@ SelfTimer.prototype.is = function() {
    */
   var LangSelects = function(lang, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LangSelects").onlyBrowser;
 
       if (!Array.isArray(lang)) throw _msg.isNotArray;
@@ -999,7 +1018,7 @@ SelfTimer.prototype.is = function() {
    */
   var LanguageExcepts = function(languages, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LanguageExcepts").onlyBrowser;
 
       if (!Array.isArray(languages)) throw _msg.isNotArray;
@@ -1019,7 +1038,7 @@ SelfTimer.prototype.is = function() {
    */
   var LangExcepts = function(lang, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LangExcepts").onlyBrowser;
 
       if (!Array.isArray(lang)) throw _msg.isNotArray;
@@ -1034,6 +1053,33 @@ SelfTimer.prototype.is = function() {
     } // ! Exception
   }; // ! LangExcepts()
 
+  /**
+   * - borwser only! -
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
+  var Mobile = function(task) {
+    try {
+      if (typeof window === "undefined")
+        throw this.messages("Mobile").onlyBrowser;
+
+      var agetnt = navigator.userAgent;
+
+      var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
+
+      var arr = [];
+
+      for (var i = 0; i < mobile.length; i++) {
+        arr.push(_h.__str_includes(agent, mobile[i]));
+      } // ! for
+
+      if (arr.indexOf(true) != -1) return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // Exception
+  }; // ! Mobile()
+
   var REGISTER = {
     True: True,
     False: False,
@@ -1042,7 +1088,8 @@ SelfTimer.prototype.is = function() {
     LanguageSelects: LanguageSelects,
     LangSelects: LangSelects,
     LanguageExcepts: LanguageExcepts,
-    LangExcepts: LangExcepts
+    LangExcepts: LangExcepts,
+    Mobile: Mobile
   }; // REGISTER
 
   return REGISTER;

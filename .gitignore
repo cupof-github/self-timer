@@ -5,3 +5,4 @@ note.txt
 any.js
 *_test.js
 .DS_Store
+yarn.lock

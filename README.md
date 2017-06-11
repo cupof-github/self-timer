@@ -119,6 +119,7 @@ Using CDN:
 - Language(), Lang()
 - LanguageSelects(), LangSelects()
 - LanguageExcepts(), LangExcepts()
+- Mobile
 
 **.timer()**
 

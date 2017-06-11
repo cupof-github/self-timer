@@ -37,7 +37,8 @@ SelfTimer.prototype.is = function() {
    */
   var Language = function(lang, task) {
     try {
-      if (window === "undefined") throw this.messages("Language").onlyBrowser;
+      if (typeof window === "undefined")
+        throw this.messages("Language").onlyBrowser;
 
       if (lang.toLowerCase() == _h.__detectLang())
         return task !== undefined ? task() : true;
@@ -55,7 +56,8 @@ SelfTimer.prototype.is = function() {
    */
   var Lang = function(lang, task) {
     try {
-      if (window === "undefined") throw this.messages("Lang").onlyBrowser;
+      if (typeof window === "undefined")
+        throw this.messages("Lang").onlyBrowser;
 
       var detect = _h.__detectLang();
 
@@ -74,7 +76,7 @@ SelfTimer.prototype.is = function() {
    */
   var LanguageSelects = function(languages, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LanguageSelects").onlyBrowser;
 
       if (!Array.isArray(languages)) throw _msg.isNotArray;
@@ -94,7 +96,7 @@ SelfTimer.prototype.is = function() {
    */
   var LangSelects = function(lang, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LangSelects").onlyBrowser;
 
       if (!Array.isArray(lang)) throw _msg.isNotArray;
@@ -116,7 +118,7 @@ SelfTimer.prototype.is = function() {
    */
   var LanguageExcepts = function(languages, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LanguageExcepts").onlyBrowser;
 
       if (!Array.isArray(languages)) throw _msg.isNotArray;
@@ -136,7 +138,7 @@ SelfTimer.prototype.is = function() {
    */
   var LangExcepts = function(lang, task) {
     try {
-      if (window === "undefined")
+      if (typeof window === "undefined")
         throw this.messages("LangExcepts").onlyBrowser;
 
       if (!Array.isArray(lang)) throw _msg.isNotArray;
@@ -151,6 +153,33 @@ SelfTimer.prototype.is = function() {
     } // ! Exception
   }; // ! LangExcepts()
 
+  /**
+   * - borwser only! -
+   * @param {[ Function ]} task
+   * @return {[ Function ]}
+   */
+  var Mobile = function(task) {
+    try {
+      if (typeof window === "undefined")
+        throw this.messages("Mobile").onlyBrowser;
+
+      var agetnt = navigator.userAgent;
+
+      var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
+
+      var arr = [];
+
+      for (var i = 0; i < mobile.length; i++) {
+        arr.push(_h.__str_includes(agent, mobile[i]));
+      } // ! for
+
+      if (arr.indexOf(true) != -1) return task !== undefined ? task() : true;
+    } catch (e) {
+      console.error(e);
+      return;
+    } // Exception
+  }; // ! Mobile()
+
   var REGISTER = {
     True: True,
     False: False,
@@ -159,7 +188,8 @@ SelfTimer.prototype.is = function() {
     LanguageSelects: LanguageSelects,
     LangSelects: LangSelects,
     LanguageExcepts: LanguageExcepts,
-    LangExcepts: LangExcepts
+    LangExcepts: LangExcepts,
+    Mobile: Mobile
   }; // REGISTER
 
   return REGISTER;
