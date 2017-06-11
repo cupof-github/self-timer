@@ -274,7 +274,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.5.0",
+    version: "1.5.2",
     method: {
       on: [
         "Sunday",
@@ -1071,7 +1071,7 @@ SelfTimer.prototype.is = function(condition) {
       if (typeof window === "undefined")
         throw this.messages("Mobile").onlyBrowser;
 
-      var agetnt = navigator.userAgent;
+      var agent = navigator.userAgent;
 
       var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
 
