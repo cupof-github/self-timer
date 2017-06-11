@@ -190,7 +190,7 @@ SelfTimer.prototype.is = function(condition) {
       if (typeof window === "undefined")
         throw this.messages("Mobile").onlyBrowser;
 
-      var agetnt = navigator.userAgent;
+      var agent = navigator.userAgent;
 
       var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
 

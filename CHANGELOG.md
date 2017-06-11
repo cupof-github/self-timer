@@ -1,5 +1,8 @@
 # self-timer.js Change log
 
+## version 1.5.1 [ 2017/06/12 ]
+fixed `is.Mobile` method
+
 ## version 1.5.0 [ 2017/06/11 ]
 added `is.Mobile` method
 
