@@ -283,7 +283,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.5.2",
+    version: "1.5.3",
     method: {
       on: [
         "Sunday",
@@ -1077,22 +1077,27 @@ SelfTimer.prototype.is = function(condition) {
    */
   var Mobile = function() {
     return new Promise(function(resolve, reject) {
-      if (typeof window === "undefined")
-        throw this.messages("Mobile").onlyBrowser;
+      try {
+        if (typeof window === "undefined")
+          throw this.messages("Mobile").onlyBrowser;
 
-      var agent = navigator.userAgent;
+        var agent = navigator.userAgent;
 
-      var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
+        var mobile = ["Windows Phone", "iPad", "iPhone", "iPod", "Android"];
 
-      var arr = [];
+        var arr = [];
 
-      for (var i = 0; i < mobile.length; i++) {
-        arr.push(_h.__str_includes(agent, mobile[i]));
-      } // ! for
+        for (var i = 0; i < mobile.length; i++) {
+          arr.push(_h.__str_includes(agent, mobile[i]));
+        } // ! for
 
-      return arr.indexOf(true) != -1
-        ? resolve(true)
-        : _Condition === true ? reject(false) : false;
+        return arr.indexOf(true) != -1
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
     }); // ! Proimse
   }; // ! Mobile()
 

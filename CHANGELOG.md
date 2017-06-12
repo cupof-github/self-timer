@@ -1,5 +1,8 @@
 # self-timer.js Change log
 
+## version 1.5.3 [ 2017/06/12 ]
+attached missing varidation in `is` method
+
 ## version 1.5.2 [ 2017/06/12 ]
 fixed `is.Mobile` method
 
