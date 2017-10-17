@@ -126,6 +126,10 @@ Using CDN:
 
 - After()
 
+**.check()** (* only available callback )
+- With()
+- Done()
+
 ## Basic Usage
 
 **self-timer.js** have 2 types and 3 diffrents of files. You may choose them in right scene.
