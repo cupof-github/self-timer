@@ -1,6 +1,6 @@
 {
   "name": "self-timer",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "description": "light-weight callback runner.",
   "main": "./dist/selftimer.min.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-minify": "0.0.14",
     "gulp-umd": "^0.2.0",
-    "jest": "^20.0.4",
+    "jest": "^21.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "webpack": "^1.13.2"

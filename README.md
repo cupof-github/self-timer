@@ -103,6 +103,7 @@ Using CDN:
 **.at( )**
 
 - Between(), Unless()
+- Min(), MinBetween(), MinSelects()
 - Hour(), HoursBetween(), HourSelects()
 
 **.in( )**

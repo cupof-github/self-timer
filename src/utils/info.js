@@ -4,7 +4,7 @@
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.5.3",
+    version: "1.6.0",
     method: {
       on: [
         "Sunday",
@@ -21,7 +21,16 @@ SelfTimer.prototype.info = function() {
         "DatesBetween",
         "DatesContain"
       ],
-      at: ["Between", "Unless", "Hour", "HoursBetween", "HourSelects"],
+      at: [
+        "Between",
+        "Unless",
+        "Min",
+        "MinBetween",
+        "MinSelects",
+        "Hour",
+        "HoursBetween",
+        "HourSelects"
+      ],
       in: ["Day", "Days", "DaysBetween", "Month", "MonthSelects", "Year"],
       is: [
         "True",

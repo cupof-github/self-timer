@@ -10,6 +10,7 @@ SelfTimer.prototype.at = function(condition) {
    */
   var _Current = this.D;
   var _day = this.D.getDay();
+  var _minute = this.D.getMinutes();
   var _hour = this.D.getHours();
   var _msg = this.messages();
   var _h = this.helpers();
@@ -76,6 +77,81 @@ SelfTimer.prototype.at = function(condition) {
       } // ! Exception
     }); // ! Promise()
   }; // ! Unless()
+
+  var Min = function(minute) {
+    return new Promise(function(resolve, reject) {
+      var time = parseInt(minute);
+
+      try {
+        if (time > 59) throw _msg.startMin;
+
+        return time === _minute
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! Hour()
+
+  /**
+   * [ at().HoursBetween description ]
+   * @param  {[ Integer ]} from [ Start hour 0-23 ]
+   * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
+   * @return {[ Resolve ]}
+   */
+  var MinBetween = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      var start = parseInt(from);
+      var end = parseInt(to);
+
+      try {
+        if (start > 59) throw _msg.startMin;
+
+        if (end > 59) throw _msg.endMin;
+
+        var arr = _h.__range(end, end - start);
+        arr.push(from);
+
+        return _h.__contains(arr, _minute)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! HoursBetween()
+
+
+  var MinSelects = function(minutes, task) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (!Array.isArray(minutes)) throw _msg.isNotArray;
+        // check array elements if numberic
+        if (!minutes.some(isNaN) != true) throw _msg.minFormat;
+
+        var array = minutes.map(function(res) {
+          // convert elemetnts to Integer in array
+          return parseInt(res);
+        });
+
+        array.map(function(res) {
+          // check elements if valid minute format
+          if (res > 59) throw _msg.isNotValidHour;
+        });
+
+        return _h.__contains(array, _minute)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! HourSelects()
+
 
   /**
    * [ at().Hour description]
@@ -163,6 +239,9 @@ SelfTimer.prototype.at = function(condition) {
   var REGISTER = {
     Between: Between,
     Unless: Unless,
+    Min: Min,
+    MinBetween: MinBetween,
+    MinSelects: MinSelects,
     Hour: Hour,
     HoursBetween: HoursBetween,
     HourSelects: HourSelects

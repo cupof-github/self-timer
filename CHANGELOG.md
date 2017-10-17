@@ -1,5 +1,11 @@
 # self-timer.js Change log
 
+## version 1.6.0 [ 2017/10/17 ]
+- added `check()` method for **es5 (only callback)**
+- added `at().Min()` method
+- added `at().MinBetween` method
+- added `at().MinSelects()` method
+
 ## version 1.5.3 [ 2017/06/12 ]
 attached missing varidation in `is` method
 

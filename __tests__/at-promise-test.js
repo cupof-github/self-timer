@@ -36,6 +36,39 @@ describe('SelfTimer.js *test group Test', () => {
 
     });
 
+    it('SelfTimer at().Min Test', () => {
+
+        let date = new Date("Tue Oct 17 2017 17:14:12 GMT+0900 (JST)");
+        const task = new selfTimer(date);
+
+        task.at(true)
+            .Min(14)
+            .then((res) => expect(res).toBeTruthy() )
+            .catch((res) => {});
+    });
+
+    it('SelfTimer at().MinBetween Test', () => {
+
+        let date = new Date("Tue Oct 17 2017 17:14:12 GMT+0900 (JST)");
+        const task = new selfTimer(date);
+
+        task.at(true)
+            .MinBetween(14, 18)
+            .then((res) => expect(res).toBeTruthy() )
+            .catch((res) => {});
+    });
+
+    it('SelfTimer at().Selects Test', () => {
+
+        let date = new Date("Tue Oct 17 2017 17:14:12 GMT+0900 (JST)");
+        const task = new selfTimer(date);
+
+        task.at(true)
+            .MinSelects([14, 18])
+            .then((res) => expect(res).toBeTruthy() )
+            .catch((res) => {});
+    });
+
     it('SelfTimer at().Hour Test', () => {
 
         let date = new Date();

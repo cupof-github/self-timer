@@ -240,6 +240,10 @@ SelfTimer.prototype.messages = function(val) {
     date: "Error: date format shoud be MM-DD",
     year: "Error: date format shoud be 20YY",
     monthBetween: "Error: start of month should be less than end of month",
+    startMin: "Error: start minute should be less than 59",
+    endMin: "Error: end minute should be until 59",
+    minFormat: "Error: minutes should be numberic",
+    isNotValidMin: "Error: minute should be until 59",
     startHour: "Error: start hour should be less than 23",
     endHour: "Error: end hour should be until 23",
     hourFormat: "Error: hours should be numberic",
@@ -274,7 +278,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.5.3",
+    version: "1.6.0",
     method: {
       on: [
         "Sunday",
@@ -291,7 +295,16 @@ SelfTimer.prototype.info = function() {
         "DatesBetween",
         "DatesContain"
       ],
-      at: ["Between", "Unless", "Hour", "HoursBetween", "HourSelects"],
+      at: [
+        "Between",
+        "Unless",
+        "Min",
+        "MinBetween",
+        "MinSelects",
+        "Hour",
+        "HoursBetween",
+        "HourSelects"
+      ],
       in: ["Day", "Days", "DaysBetween", "Month", "MonthSelects", "Year"],
       is: [
         "True",
@@ -556,6 +569,7 @@ SelfTimer.prototype.at = function(condition) {
    */
   var _Current = this.D;
   var _day = this.D.getDay();
+  var _minute = this.D.getMinutes();
   var _hour = this.D.getHours();
   var _msg = this.messages();
   var _h = this.helpers();
@@ -622,6 +636,81 @@ SelfTimer.prototype.at = function(condition) {
       } // ! Exception
     }); // ! Promise()
   }; // ! Unless()
+
+  var Min = function(minute) {
+    return new Promise(function(resolve, reject) {
+      var time = parseInt(minute);
+
+      try {
+        if (time > 59) throw _msg.startMin;
+
+        return time === _minute
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! Hour()
+
+  /**
+   * [ at().HoursBetween description ]
+   * @param  {[ Integer ]} from [ Start hour 0-23 ]
+   * @param  {[ Integer ]} to   [ End hour 0 - 23 ]
+   * @return {[ Resolve ]}
+   */
+  var MinBetween = function(from, to) {
+    return new Promise(function(resolve, reject) {
+      var start = parseInt(from);
+      var end = parseInt(to);
+
+      try {
+        if (start > 59) throw _msg.startMin;
+
+        if (end > 59) throw _msg.endMin;
+
+        var arr = _h.__range(end, end - start);
+        arr.push(from);
+
+        return _h.__contains(arr, _minute)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! HoursBetween()
+
+
+  var MinSelects = function(minutes, task) {
+    return new Promise(function(resolve, reject) {
+      try {
+        if (!Array.isArray(minutes)) throw _msg.isNotArray;
+        // check array elements if numberic
+        if (!minutes.some(isNaN) != true) throw _msg.minFormat;
+
+        var array = minutes.map(function(res) {
+          // convert elemetnts to Integer in array
+          return parseInt(res);
+        });
+
+        array.map(function(res) {
+          // check elements if valid minute format
+          if (res > 59) throw _msg.isNotValidHour;
+        });
+
+        return _h.__contains(array, _minute)
+          ? resolve(true)
+          : _Condition === true ? reject(false) : false;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    }); // ! Promise()
+  }; // ! HourSelects()
+
 
   /**
    * [ at().Hour description]
@@ -709,6 +798,9 @@ SelfTimer.prototype.at = function(condition) {
   var REGISTER = {
     Between: Between,
     Unless: Unless,
+    Min: Min,
+    MinBetween: MinBetween,
+    MinSelects: MinSelects,
     Hour: Hour,
     HoursBetween: HoursBetween,
     HourSelects: HourSelects

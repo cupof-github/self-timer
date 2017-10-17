@@ -23,7 +23,8 @@ gulp.task("es5-build", () => {
     "methods/es5/at",
     "methods/es5/in",
     "methods/es5/is",
-    "methods/es5/timer"
+    "methods/es5/timer",
+    "utils/check"
   ];
 
   // add source path in array

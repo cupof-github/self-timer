@@ -249,6 +249,10 @@ SelfTimer.prototype.messages = function(val) {
     date: "Error: date format shoud be MM-DD",
     year: "Error: date format shoud be 20YY",
     monthBetween: "Error: start of month should be less than end of month",
+    startMin: "Error: start minute should be less than 59",
+    endMin: "Error: end minute should be until 59",
+    minFormat: "Error: minutes should be numberic",
+    isNotValidMin: "Error: minute should be until 59",
     startHour: "Error: start hour should be less than 23",
     endHour: "Error: end hour should be until 23",
     hourFormat: "Error: hours should be numberic",
@@ -283,7 +287,7 @@ SelfTimer.prototype.formats = function() {
  */
 SelfTimer.prototype.info = function() {
   return {
-    version: "1.5.3",
+    version: "1.6.0",
     method: {
       on: [
         "Sunday",
@@ -300,7 +304,16 @@ SelfTimer.prototype.info = function() {
         "DatesBetween",
         "DatesContain"
       ],
-      at: ["Between", "Unless", "Hour", "HoursBetween", "HourSelects"],
+      at: [
+        "Between",
+        "Unless",
+        "Min",
+        "MinBetween",
+        "MinSelects",
+        "Hour",
+        "HoursBetween",
+        "HourSelects"
+      ],
       in: ["Day", "Days", "DaysBetween", "Month", "MonthSelects", "Year"],
       is: [
         "True",
@@ -552,6 +565,7 @@ SelfTimer.prototype.at = function() {
   var _Current = this.D;
   var _day = this.D.getDay();
   var _hour = this.D.getHours();
+  var _minute = this.D.getMinutes();
   var _msg = this.messages();
   var _h = this.helpers();
   var _fmt = this.formats();
@@ -615,6 +629,74 @@ SelfTimer.prototype.at = function() {
       } // ! Exception
     } // ! if()
   }; // ! Unless()
+
+  var Min = function(minute, task) {
+    if (_h.__checkIsValid(task)) {
+      var time = parseInt(minute);
+
+      try {
+        if (time > 59) throw _msg.startMin;
+
+        if (time === _minute) return task !== undefined ? task() : true;
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    } // ! if()
+
+  } // ! Minute()
+
+  var MinBetween = function(from, to, task) {
+    if (_h.__checkIsValid(task)) {
+      var start = parseInt(from);
+      var end = parseInt(to);
+
+      try {
+        if (start > 59) throw _msg.startMin;
+
+        if (end > 59) throw _msg.endMin;
+
+        var arr = _h.__range(end, end - start);
+        arr.push(from);
+
+        if (_h.__contains(arr, _minute)) {
+          return task !== undefined ? task() : true;
+        } // ! if()
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    } // ! if()
+  }; // ! MinutesBetween()
+
+
+  var MinSelects = function(minutes, task) {
+    if (_h.__checkIsValid(task)) {
+      try {
+        if (!Array.isArray(minutes)) throw _msg.isNotArray;
+
+        // check array elements if numberic
+        if (!minutes.some(isNaN) != true) throw _msg.minFormat;
+
+        var array = minutes.map(function(res) {
+          // convert elemetnts to Integer in array
+          return parseInt(res);
+        });
+
+        array.map(function(res) {
+          // check elements if valid minute format
+          if (res > 59) throw _msg.isNotValidMin;
+        });
+
+        if (_h.__contains(array, _minute)) {
+          return task !== undefined ? task() : true;
+        } // ! if
+      } catch (e) {
+        console.error(e);
+        return;
+      } // ! Exception
+    } // ! if()
+  }; // ! MinuteSelects()
 
   /**
    * [ at().Hour description]
@@ -704,6 +786,9 @@ SelfTimer.prototype.at = function() {
   var REGISTER = {
     Between: Between,
     Unless: Unless,
+    Min: Min,
+    MinBetween: MinBetween,
+    MinSelects: MinSelects,
     Hour: Hour,
     HoursBetween: HoursBetween,
     HourSelects: HourSelects
@@ -1258,6 +1343,48 @@ SelfTimer.prototype.timer = function() {
 
   return REGISTER;
 }; // ! SelfTimer.prototype.timer
+
+/**
+ * [ With description]
+ * @param {[ Boolean ]} val
+ */
+SelfTimer.prototype.check = function() {
+  // Private Variable
+  var _Flag = true;
+
+  /**
+   * @param {[ Any ]} val [ true || empty]
+   * @return this
+   */
+  var With = function(val) {
+    if (val !== true) _Flag = false;
+
+    return this;
+  }; // ! With
+
+  /**
+   * @param {[ Function ]} task
+   * @return {[ Function ]} || {[ Bool ]}
+   */
+  var Done = function(task) {
+    var callback = typeof task;
+
+    if (callback === "undefined") {
+      return _Flag === true ? true : false;
+    } else if (callback === "function") {
+      return _Flag === true ? task() : false;
+    } else {
+      throw new Error("Done() of argument should be 'function' or 'empty' .");
+    }
+  }; // ! Done
+
+  var REGISTER = {
+    With: With,
+    Done: Done
+  }; // REGISTER
+
+  return REGISTER;
+};
 
 return SelfTimer;
 }));
