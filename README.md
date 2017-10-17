@@ -126,7 +126,7 @@ Using CDN:
 
 - After()
 
-**.check()** (* only available callback )
+**.check()** (* only available for callback )
 - With()
 - Done()
 
