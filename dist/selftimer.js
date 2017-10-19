@@ -526,7 +526,13 @@ SelfTimer.prototype.on = function() {
       try {
         if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        if (_h.__contains(dates, _current.toISOString().slice(0, 10)))
+        var tzoffset = new Date().getTimezoneOffset() * 60000;
+
+        var localtime = new Date(Date.now() - tzoffset)
+          .toISOString()
+          .slice(0, 10);
+
+        if (_h.__contains(dates, localtime))
           return task !== undefined ? task() : true;
       } catch (e) {
         console.error(e);

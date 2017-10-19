@@ -538,7 +538,13 @@ SelfTimer.prototype.on = function(condition) {
       try {
         if (!Array.isArray(dates)) throw _msg.isNotArray;
 
-        return _h.__contains(dates, _current.toISOString().slice(0, 10))
+        var tzoffset = new Date().getTimezoneOffset() * 60000;
+
+        var localtime = new Date(Date.now() - tzoffset)
+          .toISOString()
+          .slice(0, 10);
+
+        return _h.__contains(dates, localtime)
           ? resolve(true)
           : _Condition === true ? reject(false) : false;
       } catch (e) {
